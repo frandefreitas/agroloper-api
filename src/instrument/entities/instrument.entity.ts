@@ -7,6 +7,11 @@ import {
 } from 'typeorm';
 import { FarmEntity } from 'src/farm/entities/farm.entity';
 
+export enum InstrumentType {
+  Instrument = 'Instrument',
+  Machine = 'Machine',
+}
+
 @Entity({ name: 'instrument' })
 export class InstrumentEntity {
   @PrimaryGeneratedColumn()
