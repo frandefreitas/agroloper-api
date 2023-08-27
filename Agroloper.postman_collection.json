@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "d57a5272-02e7-466a-8137-b1c3992eff61",
+		"name": "Agroloper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "7084809"
+	},
+	"item": [
+		{
+			"name": "Farm",
+			"item": [
+				{
+					"name": "Find All Farms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/farm/"
+					},
+					"response": []
+				},
+				{
+					"name": "Find One Farm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/farm/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Farm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Farm 11\",\r\n    \"description\": \"Description for Farm 3\",\r\n    \"city\": \"City C\",\r\n    \"state\": \"State Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/farm"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Farm",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Farm 11\",\r\n    \"description\": \"Description for Farm 11\",\r\n    \"city\": \"City C\",\r\n    \"state\": \"State Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/farm/11"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Farm",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Farm 11\",\r\n    \"description\": \"Description for Farm 11\",\r\n    \"city\": \"City C\",\r\n    \"state\": \"State Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/farm/9"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Instrument",
+			"item": []
+		},
+		{
+			"name": "Maintenance",
+			"item": []
+		},
+		{
+			"name": "Person",
+			"item": []
+		},
+		{
+			"name": "Scheduling",
+			"item": []
+		}
+	]
+}
