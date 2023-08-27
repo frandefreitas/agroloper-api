@@ -1,26 +1,58 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { MaintenanceEntity } from './entities/maintenance.entity';
 import { CreateMaintenanceDto } from './dtos/create-maintenance.dto';
 import { UpdateMaintenanceDto } from './dtos/update-maintenance.dto';
 
 @Injectable()
 export class MaintenanceService {
-  create(createMaintenanceDto: CreateMaintenanceDto) {
-    return 'This action adds a new maintenance';
+  constructor(
+    @InjectRepository(MaintenanceEntity)
+    private readonly maintenanceRepository: Repository<MaintenanceEntity>,
+  ) {}
+
+  async create(
+    createMaintenanceDto: CreateMaintenanceDto,
+  ): Promise<MaintenanceEntity> {
+    const maintenance = this.maintenanceRepository.create(createMaintenanceDto);
+    return await this.maintenanceRepository.save(maintenance);
   }
 
-  findAll() {
-    return `This action returns all maintenance`;
+  async findAll(): Promise<MaintenanceEntity[]> {
+    return await this.maintenanceRepository
+      .createQueryBuilder('maintenance')
+      .leftJoinAndSelect('maintenance.instrument', 'instrument')
+      .leftJoinAndSelect('maintenance.person', 'person')
+      .getMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} maintenance`;
+  async findOne(id: number): Promise<MaintenanceEntity> {
+    const maintenance = await this.maintenanceRepository
+      .createQueryBuilder('maintenance')
+      .where('maintenance.id = :id', { id })
+      .leftJoinAndSelect('maintenance.instrument', 'instrument')
+      .leftJoinAndSelect('maintenance.person', 'person')
+      .getOne();
+
+    if (!maintenance) {
+      throw new NotFoundException(`Maintenance with ID ${id} not found`);
+    }
+
+    return maintenance;
   }
 
-  update(id: number, updateMaintenanceDto: UpdateMaintenanceDto) {
-    return `This action updates a #${id} maintenance`;
+  async update(
+    id: number,
+    updateMaintenanceDto: UpdateMaintenanceDto,
+  ): Promise<MaintenanceEntity> {
+    const maintenance = await this.findOne(id);
+    const updatedMaintenance = Object.assign(maintenance, updateMaintenanceDto);
+    return await this.maintenanceRepository.save(updatedMaintenance);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} maintenance`;
+  async remove(id: number): Promise<void> {
+    const maintenance = await this.findOne(id);
+    await this.maintenanceRepository.remove(maintenance);
   }
 }

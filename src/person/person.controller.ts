@@ -1,34 +1,63 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  NotFoundException,
+} from '@nestjs/common';
 import { PersonService } from './person.service';
+import { PersonEntity } from './entities/person.entity';
 import { CreatePersonDto } from './dtos/create-person.dto';
 import { UpdatePersonDto } from './dtos/update-person.dto';
 
-@Controller('person')
+@Controller('persons')
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
 
   @Post()
-  create(@Body() createPersonDto: CreatePersonDto) {
-    return this.personService.create(createPersonDto);
+  async create(
+    @Body() createPersonDto: CreatePersonDto,
+  ): Promise<PersonEntity> {
+    return await this.personService.create(createPersonDto);
   }
 
   @Get()
-  findAll() {
-    return this.personService.findAll();
+  async findAllWithFarm(): Promise<PersonEntity[]> {
+    return await this.personService.findAllWithFarm();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.personService.findOne(+id);
+  async findOneWithFarm(@Param('id') id: string): Promise<PersonEntity> {
+    return await this.personService.findOneWithFarm(Number(id));
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePersonDto: UpdatePersonDto) {
-    return this.personService.update(+id, updatePersonDto);
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updatePersonDto: UpdatePersonDto,
+  ): Promise<PersonEntity> {
+    return await this.personService.update(Number(id), updatePersonDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.personService.remove(+id);
+  async remove(@Param('id') id: string): Promise<void> {
+    await this.personService.remove(Number(id));
+  }
+
+  @Put(':id/update-password')
+  async updatePassword(
+    @Param('id') id: string,
+    @Body('newPassword') newPassword: string,
+  ): Promise<void> {
+    const result = await this.personService.updatePassword(
+      Number(id),
+      newPassword,
+    );
+    if (result.affected === 0) {
+      throw new NotFoundException(`Person with ID ${id} not found`);
+    }
   }
 }

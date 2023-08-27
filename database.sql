@@ -17,6 +17,7 @@ CREATE TABLE person (
     phone VARCHAR(15),
     email VARCHAR(255),
     person_type ENUM('Administrator', 'InternalCollaborator', 'ExternalCollaborator') NOT NULL
+    FOREIGN KEY (farm_id) REFERENCES farm(id)
 );
 
 -- Instrument Table (including information about both Instruments and Machines)
@@ -25,6 +26,7 @@ CREATE TABLE instrument (
     name VARCHAR(100),
     description TEXT,
     type ENUM('Instrument', 'Machine') NOT NULL
+    FOREIGN KEY (farm_id) REFERENCES farm(id)
 );
 
 -- Maintenance Table

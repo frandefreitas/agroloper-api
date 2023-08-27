@@ -1,4 +1,34 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateMaintenanceDto } from './create-maintenance.dto';
+import { IsEnum, IsInt, IsOptional, IsString } from 'class-validator';
+import {
+  MaintenanceRevisionType,
+  ItemType,
+} from '../entities/maintenance.entity';
 
-export class UpdateMaintenanceDto extends PartialType(CreateMaintenanceDto) {}
+export class UpdateMaintenanceDto {
+  @IsEnum(ItemType)
+  item_type: ItemType;
+
+  @IsOptional()
+  @IsInt()
+  hour_meter?: number;
+
+  @IsOptional()
+  @IsInt()
+  km?: number;
+
+  @IsOptional()
+  @IsEnum(MaintenanceRevisionType)
+  revision_type?: MaintenanceRevisionType;
+
+  @IsOptional()
+  @IsString()
+  summary?: string;
+
+  @IsOptional()
+  @IsString()
+  date_time?: string;
+
+  @IsOptional()
+  @IsString()
+  action?: string;
+}

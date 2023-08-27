@@ -1,26 +1,42 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { FarmEntity } from './entities/farm.entity';
 import { CreateFarmDto } from './dtos/create-farm.dto';
 import { UpdateFarmDto } from './dtos/update-farm.dto';
 
 @Injectable()
 export class FarmService {
-  create(createFarmDto: CreateFarmDto) {
-    return 'This action adds a new farm';
+  constructor(
+    @InjectRepository(FarmEntity)
+    private readonly farmRepository: Repository<FarmEntity>,
+  ) {}
+
+  async create(createFarmDto: CreateFarmDto): Promise<FarmEntity> {
+    const farm = this.farmRepository.create(createFarmDto);
+    return this.farmRepository.save(farm);
   }
 
-  findAll() {
-    return `This action returns all farm`;
+  async findAll(): Promise<FarmEntity[]> {
+    return this.farmRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} farm`;
+  async findOne(id: number): Promise<FarmEntity> {
+    const farm = await this.farmRepository.findOne({ where: { id } });
+    if (!farm) {
+      throw new NotFoundException('Farm not found');
+    }
+    return farm;
   }
 
-  update(id: number, updateFarmDto: UpdateFarmDto) {
-    return `This action updates a #${id} farm`;
+  async update(id: number, updateFarmDto: UpdateFarmDto): Promise<FarmEntity> {
+    const farm = await this.findOne(id);
+    this.farmRepository.merge(farm, updateFarmDto);
+    return this.farmRepository.save(farm);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} farm`;
+  async remove(id: number): Promise<void> {
+    const farm = await this.findOne(id);
+    await this.farmRepository.remove(farm);
   }
 }
