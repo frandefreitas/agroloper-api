@@ -12,27 +12,66 @@ export class MaintenanceService {
     private readonly maintenanceRepository: Repository<MaintenanceEntity>,
   ) {}
 
-  async create(
-    createMaintenanceDto: CreateMaintenanceDto,
-  ): Promise<MaintenanceEntity> {
+  async create(createMaintenanceDto: CreateMaintenanceDto): Promise<number> {
     const maintenance = this.maintenanceRepository.create(createMaintenanceDto);
-    return await this.maintenanceRepository.save(maintenance);
+    const savedMaintenance = await this.maintenanceRepository.save(maintenance);
+    return savedMaintenance.id;
   }
 
   async findAll(): Promise<MaintenanceEntity[]> {
-    return await this.maintenanceRepository
+    return this.maintenanceRepository
       .createQueryBuilder('maintenance')
       .leftJoinAndSelect('maintenance.instrument', 'instrument')
       .leftJoinAndSelect('maintenance.person', 'person')
+      .select([
+        'maintenance.id',
+        'maintenance.item_type',
+        'maintenance.hour_meter',
+        'maintenance.km',
+        'maintenance.revision_type',
+        'maintenance.summary',
+        'maintenance.date_time',
+        'maintenance.action',
+        'instrument.id',
+        'instrument.name',
+        'instrument.type',
+        'person.id',
+        'person.name',
+        'person.gender',
+        'person.date_of_birth',
+        'person.phone',
+        'person.email',
+        'person.person_type',
+      ])
       .getMany();
   }
 
   async findOne(id: number): Promise<MaintenanceEntity> {
     const maintenance = await this.maintenanceRepository
       .createQueryBuilder('maintenance')
-      .where('maintenance.id = :id', { id })
       .leftJoinAndSelect('maintenance.instrument', 'instrument')
       .leftJoinAndSelect('maintenance.person', 'person')
+      .where('maintenance.id = :id', { id })
+      .select([
+        'maintenance.id',
+        'maintenance.item_type',
+        'maintenance.hour_meter',
+        'maintenance.km',
+        'maintenance.revision_type',
+        'maintenance.summary',
+        'maintenance.date_time',
+        'maintenance.action',
+        'instrument.id',
+        'instrument.name',
+        'instrument.type',
+        'person.id',
+        'person.name',
+        'person.gender',
+        'person.date_of_birth',
+        'person.phone',
+        'person.email',
+        'person.person_type',
+      ])
       .getOne();
 
     if (!maintenance) {
@@ -45,14 +84,104 @@ export class MaintenanceService {
   async update(
     id: number,
     updateMaintenanceDto: UpdateMaintenanceDto,
-  ): Promise<MaintenanceEntity> {
-    const maintenance = await this.findOne(id);
-    const updatedMaintenance = Object.assign(maintenance, updateMaintenanceDto);
-    return await this.maintenanceRepository.save(updatedMaintenance);
+  ): Promise<number> {
+    await this.findOne(id);
+
+    await this.maintenanceRepository.update(id, updateMaintenanceDto);
+    return id;
   }
 
   async remove(id: number): Promise<void> {
     const maintenance = await this.findOne(id);
+
     await this.maintenanceRepository.remove(maintenance);
+  }
+
+  async findByPersonId(personId: number): Promise<MaintenanceEntity[]> {
+    return this.maintenanceRepository
+      .createQueryBuilder('maintenance')
+      .leftJoinAndSelect('maintenance.instrument', 'instrument')
+      .leftJoinAndSelect('maintenance.person', 'person')
+      .where('person.id = :personId', { personId })
+      .select([
+        'maintenance.id',
+        'maintenance.item_type',
+        'maintenance.hour_meter',
+        'maintenance.km',
+        'maintenance.revision_type',
+        'maintenance.summary',
+        'maintenance.date_time',
+        'maintenance.action',
+        'instrument.id',
+        'instrument.name',
+        'instrument.type',
+        'person.id',
+        'person.name',
+        'person.gender',
+        'person.date_of_birth',
+        'person.phone',
+        'person.email',
+        'person.person_type',
+      ])
+      .getMany();
+  }
+
+  async findByInstrumentId(instrumentId: number): Promise<MaintenanceEntity[]> {
+    return this.maintenanceRepository
+      .createQueryBuilder('maintenance')
+      .leftJoinAndSelect('maintenance.instrument', 'instrument')
+      .leftJoinAndSelect('maintenance.person', 'person')
+      .where('instrument.id = :instrumentId', { instrumentId })
+      .select([
+        'maintenance.id',
+        'maintenance.item_type',
+        'maintenance.hour_meter',
+        'maintenance.km',
+        'maintenance.revision_type',
+        'maintenance.summary',
+        'maintenance.date_time',
+        'maintenance.action',
+        'instrument.id',
+        'instrument.name',
+        'instrument.type',
+        'person.id',
+        'person.name',
+        'person.gender',
+        'person.date_of_birth',
+        'person.phone',
+        'person.email',
+        'person.person_type',
+      ])
+      .getMany();
+  }
+
+  async findByFarmId(farmId: number): Promise<MaintenanceEntity[]> {
+    return this.maintenanceRepository
+      .createQueryBuilder('maintenance')
+      .leftJoinAndSelect('maintenance.instrument', 'instrument')
+      .leftJoin('instrument.farm', 'farm')
+      .leftJoinAndSelect('maintenance.person', 'person')
+      .where('farm.id = :farmId', { farmId })
+      .select([
+        'maintenance.id',
+        'maintenance.item_type',
+        'maintenance.hour_meter',
+        'maintenance.km',
+        'maintenance.revision_type',
+        'maintenance.summary',
+        'maintenance.date_time',
+        'maintenance.action',
+        'instrument.id',
+        'instrument.name',
+        'instrument.type',
+        'person.id',
+        'person.name',
+        'person.gender',
+        'person.date_of_birth',
+        'person.phone',
+        'person.email',
+        'person.person_type',
+      ])
+      .getMany();
   }
 }
