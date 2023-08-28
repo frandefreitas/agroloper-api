@@ -85,7 +85,89 @@
 		},
 		{
 			"name": "Instrument",
-			"item": []
+			"item": [
+				{
+					"name": "Find All Instruments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/instrument/"
+					},
+					"response": []
+				},
+				{
+					"name": "Find One Instrument",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/instrument/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Instruments by Farm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/instrument/farm/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Instrument",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Furadeira\",\r\n    \"description\": \"Ferramenta para perfuração de furos\",\r\n    \"type\": \"Instrument\",\r\n    \"farm\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/instrument"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Instrument",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Brocadeira\",\r\n    \"description\": \"Ferramenta para brocar\",\r\n    \"type\": \"Instrument\",\r\n    \"farm\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/instrument/11"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Instrument",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/instrument/11"
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Maintenance",
@@ -109,6 +191,15 @@
 						"method": "GET",
 						"header": [],
 						"url": "http://localhost:3000/person/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Persons by Farm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/person/farm/3"
 					},
 					"response": []
 				},
@@ -144,7 +235,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:3000/person/15"
+						"url": "http://localhost:3000/person/16"
 					},
 					"response": []
 				},

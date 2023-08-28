@@ -48,6 +48,32 @@ export class PersonService {
       .getMany();
   }
 
+  async findAllByFarm(farmId: number | undefined): Promise<PersonEntity[]> {
+    const queryBuilder = this.personRepository
+      .createQueryBuilder('person')
+      .leftJoinAndSelect('person.farm', 'farm')
+      .select([
+        'person.id',
+        'person.name',
+        'person.gender',
+        'person.date_of_birth',
+        'person.phone',
+        'person.email',
+        'person.person_type',
+        'farm.id',
+        'farm.name',
+        'farm.description',
+        'farm.city',
+        'farm.state',
+      ]);
+
+    if (farmId !== undefined) {
+      queryBuilder.where('farm.id = :farmId', { farmId });
+    }
+
+    return await queryBuilder.getMany();
+  }
+
   async findOneWithFarm(id: number): Promise<PersonEntity> {
     const person = await this.personRepository
       .createQueryBuilder('person')

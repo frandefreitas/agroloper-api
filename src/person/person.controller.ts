@@ -33,6 +33,13 @@ export class PersonController {
     return await this.personService.findAllWithFarm();
   }
 
+  @Get('farm/:id')
+  findAllByFarm(
+    @Param('id') farmId: number | undefined,
+  ): Promise<PersonEntity[]> {
+    return this.personService.findAllByFarm(farmId);
+  }
+
   @Get(':id')
   async findOneWithFarm(@Param('id') id: string): Promise<PersonEntity> {
     return await this.personService.findOneWithFarm(Number(id));
