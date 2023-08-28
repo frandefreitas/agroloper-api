@@ -13,12 +13,15 @@ import { PersonEntity } from './entities/person.entity';
 import { CreatePersonDto } from './dtos/create-person.dto';
 import { UpdatePersonDto } from './dtos/update-person.dto';
 import { UpdatePasswordDto } from './dtos/update-password.dto';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 
 @Controller('person')
+@ApiTags('Person')
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
 
   @Post()
+  @ApiBody({ type: CreatePersonDto })
   async create(
     @Body() createPersonDto: CreatePersonDto,
   ): Promise<{ id: number }> {
@@ -36,6 +39,7 @@ export class PersonController {
   }
 
   @Put(':id')
+  @ApiBody({ type: UpdatePersonDto })
   async update(
     @Param('id') id: string,
     @Body() updatePersonDto: UpdatePersonDto,

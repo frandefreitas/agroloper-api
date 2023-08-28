@@ -1,13 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { SchedulingService } from './scheduling.service';
 import { CreateSchedulingDto } from './dtos/create-scheduling.dto';
 import { UpdateSchedulingDto } from './dtos/update-scheduling.dto';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 
 @Controller('scheduling')
+@ApiTags('Scheduling')
 export class SchedulingController {
   constructor(private readonly schedulingService: SchedulingService) {}
 
   @Post()
+  @ApiBody({ type: CreateSchedulingDto })
   create(@Body() createSchedulingDto: CreateSchedulingDto) {
     return this.schedulingService.create(createSchedulingDto);
   }
@@ -23,7 +34,11 @@ export class SchedulingController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSchedulingDto: UpdateSchedulingDto) {
+  @ApiBody({ type: UpdateSchedulingDto })
+  update(
+    @Param('id') id: string,
+    @Body() updateSchedulingDto: UpdateSchedulingDto,
+  ) {
     return this.schedulingService.update(+id, updateSchedulingDto);
   }
 

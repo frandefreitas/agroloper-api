@@ -10,12 +10,15 @@ import {
 import { FarmService } from './farm.service';
 import { CreateFarmDto } from './dtos/create-farm.dto';
 import { UpdateFarmDto } from './dtos/update-farm.dto';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 
 @Controller('farm')
+@ApiTags('Farm')
 export class FarmController {
   constructor(private readonly farmService: FarmService) {}
 
   @Post()
+  @ApiBody({ type: CreateFarmDto })
   create(@Body() createFarmDto: CreateFarmDto) {
     return this.farmService.create(createFarmDto);
   }
@@ -31,6 +34,7 @@ export class FarmController {
   }
 
   @Put(':id')
+  @ApiBody({ type: UpdateFarmDto })
   update(@Param('id') id: string, @Body() updateFarmDto: UpdateFarmDto) {
     return this.farmService.update(+id, updateFarmDto);
   }
