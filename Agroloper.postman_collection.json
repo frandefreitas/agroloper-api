@@ -171,7 +171,107 @@
 		},
 		{
 			"name": "Maintenance",
-			"item": []
+			"item": [
+				{
+					"name": "Find All Maintenances",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/maintenance/"
+					},
+					"response": []
+				},
+				{
+					"name": "Find One Maintenance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/maintenance/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Maintenances by Person",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/maintenance/person/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Maintenances by Instrument",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/maintenance/instrument/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Maintenances by Farm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/maintenance/farm/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Maintenance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_type\": \"Instrument\",\r\n    \"hour_meter\": 100,\r\n    \"km\": 5000,\r\n    \"revision_type\": \"Preventive\",\r\n    \"summary\": \"Manutenção preventiva da ferramenta\",\r\n    \"date_time\": \"2023-08-27T13:00:00.000Z\",\r\n    \"action\": \"Verificação geral\",\r\n    \"instrument\": 1,\r\n    \"person\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/maintenance"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Maintenance",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_type\": \"Machine\",\r\n    \"hour_meter\": 100,\r\n    \"km\": 1,\r\n    \"revision_type\": \"Corrective\",\r\n    \"summary\": \"Manutenção preventiva da ferramenta\",\r\n    \"date_time\": \"2023-08-27T13:00:00.000Z\",\r\n    \"action\": \"Verificação geral\",\r\n    \"instrument\": 1,\r\n    \"person\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/maintenance/23"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Maintenance",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/maintenance/22"
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Person",
