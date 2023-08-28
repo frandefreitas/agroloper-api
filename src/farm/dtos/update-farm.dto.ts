@@ -1,15 +1,18 @@
-import { Column } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateFarmDto {
-  @Column({ nullable: true })
+  @ApiProperty({ description: 'Name of the farm (optional)', required: false })
   name?: string;
 
-  @Column('text', { nullable: true })
+  @ApiProperty({
+    description: 'Description of the farm (optional)',
+    required: false,
+  })
   description?: string;
 
-  @Column({ nullable: true })
+  @ApiProperty({ description: 'City of the farm (optional)', required: false })
   city?: string;
 
-  @Column({ nullable: true })
+  @ApiProperty({ description: 'State of the farm (optional)', required: false })
   state?: string;
 }
