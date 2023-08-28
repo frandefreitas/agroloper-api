@@ -54,5 +54,5 @@ export class PersonEntity {
 
   @ManyToOne(() => FarmEntity)
   @JoinColumn({ name: 'farmId' })
-  bloodCenter: FarmEntity;
+  farm: FarmEntity;
 }

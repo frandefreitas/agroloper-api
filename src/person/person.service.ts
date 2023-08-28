@@ -4,6 +4,7 @@ import { Repository, UpdateResult } from 'typeorm';
 import { PersonEntity } from './entities/person.entity';
 import { CreatePersonDto } from './dtos/create-person.dto';
 import { UpdatePersonDto } from './dtos/update-person.dto';
+import { UpdatePasswordDto } from './dtos/update-password.dto';
 import * as crypto from 'crypto';
 
 @Injectable()
@@ -17,12 +18,13 @@ export class PersonService {
     return crypto.createHash('sha1').update(password).digest('hex');
   }
 
-  async create(createPersonDto: CreatePersonDto): Promise<PersonEntity> {
+  async create(createPersonDto: CreatePersonDto): Promise<{ id: number }> {
     const person = this.personRepository.create({
       ...createPersonDto,
       password: this.hashPassword(createPersonDto.password),
     });
-    return await this.personRepository.save(person);
+    const created = await this.personRepository.save(person);
+    return { id: created.id };
   }
 
   async findAllWithFarm(): Promise<PersonEntity[]> {
@@ -38,10 +40,10 @@ export class PersonService {
         'person.email',
         'person.person_type',
         'farm.id',
-        'farm.name as farm_name',
-        'farm.description as farm_description',
-        'farm.city as farm_city',
-        'farm.state as farm_state',
+        'farm.name',
+        'farm.description',
+        'farm.city',
+        'farm.state',
       ])
       .getMany();
   }
@@ -60,10 +62,10 @@ export class PersonService {
         'person.email',
         'person.person_type',
         'farm.id',
-        'farm.name as farm_name',
-        'farm.description as farm_description',
-        'farm.city as farm_city',
-        'farm.state as farm_state',
+        'farm.name',
+        'farm.description',
+        'farm.city',
+        'farm.state',
       ])
       .getOne();
 
@@ -88,8 +90,26 @@ export class PersonService {
     await this.personRepository.remove(person);
   }
 
-  async updatePassword(id: number, newPassword: string): Promise<UpdateResult> {
-    const hashedPassword = this.hashPassword(newPassword);
-    return await this.personRepository.update(id, { password: hashedPassword });
+  async updatePassword(
+    id: number,
+    updatePasswordDto: UpdatePasswordDto,
+  ): Promise<void> {
+    const person = await this.personRepository.findOne({ where: { id } });
+
+    if (!person) {
+      throw new NotFoundException(`Person with id ${id} not found`);
+    }
+
+    const currentPasswordHashed = crypto
+      .createHash('sha1')
+      .update(updatePasswordDto.currentPassword)
+      .digest('hex');
+
+    if (currentPasswordHashed !== person.password) {
+      throw new Error('Current password is incorrect.');
+    }
+
+    const hashedNewPassword = this.hashPassword(updatePasswordDto.newPassword);
+    await this.personRepository.update(id, { password: hashedNewPassword });
   }
 }

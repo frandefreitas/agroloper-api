@@ -12,9 +12,6 @@ export class UpdatePersonDto {
   date_of_birth?: Date;
 
   @IsOptional()
-  password?: string;
-
-  @IsOptional()
   phone?: string;
 
   @IsOptional()

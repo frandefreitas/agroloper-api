@@ -12,6 +12,7 @@ import { PersonService } from './person.service';
 import { PersonEntity } from './entities/person.entity';
 import { CreatePersonDto } from './dtos/create-person.dto';
 import { UpdatePersonDto } from './dtos/update-person.dto';
+import { UpdatePasswordDto } from './dtos/update-password.dto';
 
 @Controller('person')
 export class PersonController {
@@ -20,7 +21,7 @@ export class PersonController {
   @Post()
   async create(
     @Body() createPersonDto: CreatePersonDto,
-  ): Promise<PersonEntity> {
+  ): Promise<{ id: number }> {
     return await this.personService.create(createPersonDto);
   }
 
@@ -49,15 +50,16 @@ export class PersonController {
 
   @Put(':id/update-password')
   async updatePassword(
-    @Param('id') id: string,
-    @Body('newPassword') newPassword: string,
+    @Param('id') id: number,
+    @Body() updatePasswordDto: UpdatePasswordDto,
   ): Promise<void> {
-    const result = await this.personService.updatePassword(
-      Number(id),
-      newPassword,
-    );
-    if (result.affected === 0) {
-      throw new NotFoundException(`Person with ID ${id} not found`);
+    try {
+      await this.personService.updatePassword(id, updatePasswordDto);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw new Error('Unable to update password.');
     }
   }
 }

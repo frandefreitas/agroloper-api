@@ -93,7 +93,98 @@
 		},
 		{
 			"name": "Person",
-			"item": []
+			"item": [
+				{
+					"name": "Find All Persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/person/"
+					},
+					"response": []
+				},
+				{
+					"name": "Find One Person",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/person/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Person",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Fake User 2\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"user1@example.com\",\r\n    \"person_type\": \"Administrator\",\r\n    \"farm\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/person"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Person",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Fake User 2\",\r\n    \"gender\": \"Female\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"user1@example.com\",\r\n    \"person_type\": \"ExternalCollaborator\",\r\n    \"farm\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/person/15"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"senha123\",\r\n    \"newPassword\": \"senha1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/person/15/update-password"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Person",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Farm 11\",\r\n    \"description\": \"Description for Farm 11\",\r\n    \"city\": \"City C\",\r\n    \"state\": \"State Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/person/15"
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Scheduling",
