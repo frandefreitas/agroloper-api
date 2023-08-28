@@ -13,7 +13,7 @@ import { PersonEntity } from './entities/person.entity';
 import { CreatePersonDto } from './dtos/create-person.dto';
 import { UpdatePersonDto } from './dtos/update-person.dto';
 
-@Controller('persons')
+@Controller('person')
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
 
