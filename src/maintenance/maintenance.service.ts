@@ -156,32 +156,40 @@ export class MaintenanceService {
   }
 
   async findByFarmId(farmId: number): Promise<MaintenanceEntity[]> {
-    return this.maintenanceRepository
-      .createQueryBuilder('maintenance')
-      .leftJoinAndSelect('maintenance.instrument', 'instrument')
-      .leftJoin('instrument.farm', 'farm')
-      .leftJoinAndSelect('maintenance.person', 'person')
-      .where('farm.id = :farmId', { farmId })
-      .select([
-        'maintenance.id',
-        'maintenance.item_type',
-        'maintenance.hour_meter',
-        'maintenance.km',
-        'maintenance.revision_type',
-        'maintenance.summary',
-        'maintenance.date_time',
-        'maintenance.action',
-        'instrument.id',
-        'instrument.name',
-        'instrument.type',
-        'person.id',
-        'person.name',
-        'person.gender',
-        'person.date_of_birth',
-        'person.phone',
-        'person.email',
-        'person.person_type',
-      ])
-      .getMany();
+    const query = `
+      SELECT
+        maintenance.id AS maintenance_id,
+        maintenance.item_type,
+        maintenance.hour_meter,
+        maintenance.km,
+        maintenance.revision_type,
+        maintenance.summary,
+        maintenance.date_time,
+        maintenance.action,
+        instrument.id AS instrument_id,
+        instrument.name AS instrument_name,
+        instrument.type AS instrument_type,
+        person.id AS person_id,
+        person.name AS person_name,
+        person.gender AS person_gender,
+        person.date_of_birth AS person_date_of_birth,
+        person.phone AS person_phone,
+        person.email AS person_email,
+        person.person_type AS person_person_type
+      FROM maintenance
+      LEFT JOIN instrument ON maintenance.instrumentId = instrument.id
+      LEFT JOIN person AS person ON maintenance.personId = person.id
+      WHERE person.farmId = ?
+    `;
+
+    const results = await this.maintenanceRepository.query(query, [farmId]);
+
+    if (!results) {
+      throw new NotFoundException(
+        `No maintenance records found for Farm ID ${farmId}`,
+      );
+    }
+
+    return results;
   }
 }
