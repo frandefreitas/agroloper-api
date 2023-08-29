@@ -13,6 +13,7 @@ export class CreateSchedulingDto {
 
   @ApiProperty({
     type: 'integer',
+    name: 'instrument',
     description: 'ID of the instrument or machine',
   })
   @IsInt()

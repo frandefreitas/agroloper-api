@@ -379,7 +379,107 @@
 		},
 		{
 			"name": "Scheduling",
-			"item": []
+			"item": [
+				{
+					"name": "Find All Schedulings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/scheduling/"
+					},
+					"response": []
+				},
+				{
+					"name": "Find One Scheduling",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/scheduling/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Schedulings by Person",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/scheduling/person/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Schedulings by Instrument",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/scheduling/instrument/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Schedulings by Farm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/scheduling/farm/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Scheduling",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scheduled_date_time\": \"2019-08-27T13:00:00.000Z\",\r\n    \"person\": 3,\r\n    \"instrument\": 3,\r\n    \"scheduling_description\": \"Manutenção!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/scheduling"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Scheduling",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scheduled_date_time\": \"2020-08-27T13:00:00.000Z\",\r\n    \"person\": 1,\r\n    \"instrument\": 1,\r\n    \"scheduling_description\": \"Nova Manutenção!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/scheduling/11"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Scheduling",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/scheduling/6"
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
