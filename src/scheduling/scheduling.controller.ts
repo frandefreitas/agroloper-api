@@ -1,3 +1,4 @@
+// src/scheduling/scheduling.controller.ts
 import {
   Controller,
   Get,
@@ -23,14 +24,29 @@ export class SchedulingController {
     return this.schedulingService.create(createSchedulingDto);
   }
 
+  @Get('farm/:farmId')
+  findSchedulingsByFarm(@Param('farmId') farmId: string) {
+    return this.schedulingService.findSchedulingsByFarm(+farmId);
+  }
+
+  @Get('person/:personId')
+  findSchedulingsByPerson(@Param('personId') personId: string) {
+    return this.schedulingService.findSchedulingsByPerson(+personId);
+  }
+
+  @Get('instrument/:instrumentId')
+  findSchedulingsByInstrument(@Param('instrumentId') instrumentId: string) {
+    return this.schedulingService.findSchedulingsByInstrument(+instrumentId);
+  }
+
   @Get()
-  findAll() {
-    return this.schedulingService.findAll();
+  findAllWithDetails() {
+    return this.schedulingService.findAllWithDetails();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.schedulingService.findOne(+id);
+  findOneWithDetails(@Param('id') id: string) {
+    return this.schedulingService.findOneWithDetails(+id);
   }
 
   @Patch(':id')

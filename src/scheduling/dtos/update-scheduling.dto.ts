@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsDateString } from 'class-validator';
+import { IsOptional, IsDateString, IsInt } from 'class-validator';
 
 export class UpdateSchedulingDto {
   @ApiProperty({
@@ -10,6 +10,14 @@ export class UpdateSchedulingDto {
   })
   @IsOptional()
   personId?: number;
+
+  @ApiProperty({
+    type: 'integer',
+    description: 'ID of the instrument or machine',
+  })
+  @IsInt()
+  @IsOptional()
+  instrumentId?: number;
 
   @ApiProperty({
     type: 'string',

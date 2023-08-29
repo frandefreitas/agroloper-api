@@ -18,6 +18,10 @@ export class CreateTableScheduling1693167318026 implements MigrationInterface {
             type: 'int',
           },
           {
+            name: 'instrumentId',
+            type: 'int',
+          },
+          {
             name: 'scheduled_date_time',
             type: 'datetime',
           },
@@ -30,6 +34,12 @@ export class CreateTableScheduling1693167318026 implements MigrationInterface {
           {
             columnNames: ['personId'],
             referencedTableName: 'person',
+            referencedColumnNames: ['id'],
+            onDelete: 'CASCADE',
+          },
+          {
+            columnNames: ['instrumentId'],
+            referencedTableName: 'instrument',
             referencedColumnNames: ['id'],
             onDelete: 'CASCADE',
           },

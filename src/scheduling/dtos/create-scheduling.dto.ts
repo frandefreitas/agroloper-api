@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsDateString } from 'class-validator';
+import { IsNotEmpty, IsDateString, IsInt } from 'class-validator';
 
 export class CreateSchedulingDto {
   @ApiProperty({
@@ -10,6 +10,13 @@ export class CreateSchedulingDto {
   })
   @IsNotEmpty()
   personId: number;
+
+  @ApiProperty({
+    type: 'integer',
+    description: 'ID of the instrument or machine',
+  })
+  @IsInt()
+  instrumentId: number;
 
   @ApiProperty({
     type: 'string',

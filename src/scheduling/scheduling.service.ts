@@ -1,26 +1,160 @@
-import { Injectable } from '@nestjs/common';
+// src/scheduling/scheduling.service.ts
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { SchedulingEntity } from './entities/scheduling.entity';
 import { CreateSchedulingDto } from './dtos/create-scheduling.dto';
 import { UpdateSchedulingDto } from './dtos/update-scheduling.dto';
 
 @Injectable()
 export class SchedulingService {
-  create(createSchedulingDto: CreateSchedulingDto) {
-    return 'This action adds a new scheduling';
+  constructor(
+    @InjectRepository(SchedulingEntity)
+    private readonly schedulingRepository: Repository<SchedulingEntity>,
+  ) {}
+
+  async create(
+    createSchedulingDto: CreateSchedulingDto,
+  ): Promise<SchedulingEntity> {
+    const scheduling = await this.schedulingRepository.save(
+      createSchedulingDto,
+    );
+    return scheduling;
   }
 
-  findAll() {
-    return `This action returns all scheduling`;
+  async findSchedulingsByFarm(farmId: number): Promise<SchedulingEntity[]> {
+    return this.schedulingRepository
+      .createQueryBuilder('scheduling')
+      .leftJoinAndSelect('scheduling.person', 'person')
+      .leftJoinAndSelect('scheduling.instrument', 'instrument')
+      .leftJoinAndSelect('person.farm', 'farm')
+      .where('farm.id = :farmId', { farmId })
+      .select([
+        'scheduling.id',
+        'scheduling.scheduled_date_time',
+        'person.id',
+        'person.name',
+        'instrument.id',
+        'instrument.name',
+        'farm.id',
+        'farm.name',
+      ])
+      .getMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} scheduling`;
+  async findSchedulingsByPerson(personId: number): Promise<SchedulingEntity[]> {
+    return this.schedulingRepository
+      .createQueryBuilder('scheduling')
+      .leftJoinAndSelect('scheduling.person', 'person')
+      .leftJoinAndSelect('scheduling.instrument', 'instrument')
+      .leftJoinAndSelect('person.farm', 'farm')
+      .where('person.id = :personId', { personId })
+      .select([
+        'scheduling.id',
+        'scheduling.scheduled_date_time',
+        'person.id',
+        'person.name',
+        'instrument.id',
+        'instrument.name',
+        'farm.id',
+        'farm.name',
+      ])
+      .getMany();
   }
 
-  update(id: number, updateSchedulingDto: UpdateSchedulingDto) {
-    return `This action updates a #${id} scheduling`;
+  async findSchedulingsByInstrument(
+    instrumentId: number,
+  ): Promise<SchedulingEntity[]> {
+    return this.schedulingRepository
+      .createQueryBuilder('scheduling')
+      .leftJoinAndSelect('scheduling.person', 'person')
+      .leftJoinAndSelect('scheduling.instrument', 'instrument')
+      .where('instrument.id = :instrumentId', { instrumentId })
+      .select([
+        'scheduling.id',
+        'scheduling.scheduled_date_time',
+        'person.id',
+        'person.name',
+        'instrument.id',
+        'instrument.name',
+      ])
+      .getMany();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} scheduling`;
+  async findAllWithDetails(): Promise<SchedulingEntity[]> {
+    return this.schedulingRepository
+      .createQueryBuilder('scheduling')
+      .leftJoinAndSelect('scheduling.person', 'person')
+      .leftJoinAndSelect('scheduling.instrument', 'instrument')
+      .leftJoinAndSelect('person.farm', 'farm')
+      .select([
+        'scheduling.id',
+        'scheduling.scheduled_date_time',
+        'person.id',
+        'person.name',
+        'instrument.id',
+        'instrument.name',
+        'farm.id',
+        'farm.name',
+      ])
+      .getMany();
+  }
+
+  async findOneWithDetails(id: number): Promise<SchedulingEntity> {
+    const scheduling = await this.schedulingRepository
+      .createQueryBuilder('scheduling')
+      .leftJoinAndSelect('scheduling.person', 'person')
+      .leftJoinAndSelect('scheduling.instrument', 'instrument')
+      .leftJoinAndSelect('person.farm', 'farm')
+      .where('scheduling.id = :id', { id })
+      .select([
+        'scheduling.id',
+        'scheduling.scheduled_date_time',
+        'person.id',
+        'person.name',
+        'instrument.id',
+        'instrument.name',
+        'farm.id',
+        'farm.name',
+      ])
+      .getOne();
+
+    if (!scheduling) {
+      throw new NotFoundException('Agendamento não encontrado.');
+    }
+
+    return scheduling;
+  }
+
+  async update(
+    id: number,
+    updateSchedulingDto: UpdateSchedulingDto,
+  ): Promise<SchedulingEntity> {
+    const scheduling = await this.schedulingRepository.findOne({
+      where: { id },
+    });
+
+    if (!scheduling) {
+      throw new NotFoundException('Agendamento não encontrado.');
+    }
+
+    await this.schedulingRepository.save({
+      ...scheduling,
+      ...updateSchedulingDto,
+    });
+
+    return scheduling;
+  }
+
+  async remove(id: number): Promise<void> {
+    const scheduling = await this.schedulingRepository.findOne({
+      where: { id },
+    });
+
+    if (!scheduling) {
+      throw new NotFoundException('Agendamento não encontrado.');
+    }
+
+    await this.schedulingRepository.remove(scheduling);
   }
 }
