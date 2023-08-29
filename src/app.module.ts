@@ -14,7 +14,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       host: 'localhost',
       port: 3306,
       username: 'soci',
-      password: 'rejkrljklklmadnk@0493409kdsjk932', //49834935fdklhi@afkl9430d
+      password: 'rejkrljklklmadnk@0493409kdsjk932',
       database: 'agroloper-database-2023',
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
       migrations: [`${__dirname}/migration/{.ts,*.js}`],
