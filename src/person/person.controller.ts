@@ -28,6 +28,14 @@ export class PersonController {
     return await this.personService.create(createPersonDto);
   }
 
+  @Post('admin')
+  @ApiBody({ type: CreatePersonDto })
+  async createAdministrator(
+    @Body() createPersonDto: CreatePersonDto,
+  ): Promise<{ id: number }> {
+    return await this.personService.createAdministrator(createPersonDto);
+  }
+
   @Get()
   async findAllWithFarm(): Promise<PersonEntity[]> {
     return await this.personService.findAllWithFarm();

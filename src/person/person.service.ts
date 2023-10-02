@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
 import { PersonEntity } from './entities/person.entity';
@@ -19,10 +23,34 @@ export class PersonService {
   }
 
   async create(createPersonDto: CreatePersonDto): Promise<{ id: number }> {
+    if (createPersonDto.person_type === 'Administrator') {
+      throw new NotFoundException(
+        `Person cannot be created with this type of profile.`,
+      );
+    }
+
     const person = this.personRepository.create({
       ...createPersonDto,
       password: this.hashPassword(createPersonDto.password),
     });
+    const created = await this.personRepository.save(person);
+    return { id: created.id };
+  }
+
+  async createAdministrator(
+    createPersonDto: CreatePersonDto,
+  ): Promise<{ id: number }> {
+    if (createPersonDto.person_type !== 'Administrator') {
+      throw new NotFoundException(
+        'This method is for creating Administrator only.',
+      );
+    }
+
+    const person = this.personRepository.create({
+      ...createPersonDto,
+      password: this.hashPassword(createPersonDto.password),
+    });
+
     const created = await this.personRepository.save(person);
     return { id: created.id };
   }

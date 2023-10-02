@@ -14,10 +14,16 @@ async function bootstrap() {
       'Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept',
     );
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATH');
+
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH'); // Correção aqui
     res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Allow-PATH', '*');
-    next();
+    res.header('Access-Control-Allow-PATHS', '*');
+
+    if (req.method === 'OPTIONS') {
+      res.sendStatus(200);
+    } else {
+      next();
+    }
   });
 
   await app.listen(3000);

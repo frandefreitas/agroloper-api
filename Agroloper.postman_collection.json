@@ -52,14 +52,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Farm 11\",\r\n    \"description\": \"Description for Farm 11\",\r\n    \"city\": \"City C\",\r\n    \"state\": \"State Z\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Farm 11\",\r\n    \"description\": \"Description for Farm 11\",\r\n    \"city\": \"City A\",\r\n    \"state\": \"State A\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:3000/farm/11"
+						"url": "http://localhost:3000/farm/12"
 					},
 					"response": []
 				},
@@ -310,7 +310,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Fake User 2\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"user1@example.com\",\r\n    \"person_type\": \"Administrator\",\r\n    \"farm\": 2\r\n}",
+							"raw": "{\r\n    \"name\": \"Fake User 2\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"user1@example.com\",\r\n    \"person_type\": \"ExternalCollaborator\",\r\n    \"farm\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -318,6 +318,24 @@
 							}
 						},
 						"url": "http://localhost:3000/person"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Administrador",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Fake User 2\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"user1@example.com\",\r\n    \"person_type\": \"Administrator\",\r\n    \"farm\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/person/admin"
 					},
 					"response": []
 				},
@@ -371,7 +389,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:3000/person/15"
+						"url": "http://localhost:3000/person/50"
 					},
 					"response": []
 				}

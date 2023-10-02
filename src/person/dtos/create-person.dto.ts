@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsEnum } from 'class-validator';
+import { IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
 import { Gender, PersonType } from '../entities/person.entity';
 
 export class CreatePersonDto {
@@ -45,5 +45,6 @@ export class CreatePersonDto {
     name: 'farm',
     description: 'ID of the farm to which the person belongs',
   })
+  @IsOptional()
   farm_id: number;
 }

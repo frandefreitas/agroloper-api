@@ -48,7 +48,7 @@ export class PersonEntity {
   @Column({
     type: 'enum',
     enum: PersonType,
-    default: PersonType.Administrator,
+    default: PersonType.InternalCollaborator,
   })
   person_type: PersonType;
 
