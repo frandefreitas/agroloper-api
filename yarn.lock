@@ -2350,7 +2350,7 @@ expect@^29.0.0, expect@^29.6.4:
     jest-message-util "^29.6.3"
     jest-util "^29.6.3"
 
-express@4.18.2:
+express@4.18.2, express@^4.18.2:
   version "4.18.2"
   resolved "https://registry.yarnpkg.com/express/-/express-4.18.2.tgz#3fabe08296e930c796c19e3c516979386ba9fd59"
   integrity sha512-5/PsL6iGPdfQ/lKM1UuielYgv3BUoJfz1aUwU9vHZ+J7gyvwdQXFEBIEIaxeGf0GIcreATNyBExtalisDbuMqQ==
@@ -2883,6 +2883,11 @@ inquirer@8.2.6:
     strip-ansi "^6.0.0"
     through "^2.3.6"
     wrap-ansi "^6.0.1"
+
+install@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/install/-/install-0.13.0.tgz#6af6e9da9dd0987de2ab420f78e60d9c17260776"
+  integrity sha512-zDml/jzr2PKU9I8J/xyZBQn8rPCAY//UOYNmR01XwNwyfhEWObo2SWfSl1+0tm1u6PhxLwDnfsT/6jB7OUxqFA==
 
 interpret@^1.0.0:
   version "1.4.0"
@@ -4914,6 +4919,11 @@ uid@2.0.2:
   integrity sha512-u3xV3X7uzvi5b1MncmZo3i2Aw222Zk1keqLA1YkHldREkAhAqi65wuPfe7lHx8H/Wzy+8CE7S7uS3jekIM5s8g==
   dependencies:
     "@lukeed/csprng" "^1.0.0"
+
+uninstall@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/uninstall/-/uninstall-0.0.0.tgz#103e6e37e9c52ec857542cd259023d71c7a3fb2b"
+  integrity sha512-pjP/0+A4gsbDVa8XH/S2GZdT9NPJW8NFMy3GI7HnsWG+NAmFSSj3QidNosXBI9cPtxxNExEDdhKFO6sli8K3mA==
 
 universalify@^2.0.0:
   version "2.0.0"
