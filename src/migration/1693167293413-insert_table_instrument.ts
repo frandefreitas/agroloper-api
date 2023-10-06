@@ -10,7 +10,7 @@ export class InsertTableInstrument1693167293413 implements MigrationInterface {
         ('Chave de Fenda', 'Ferramenta para apertar parafusos', 'Instrument', 3),
         ('Martelo', 'Ferramenta para bater em objetos', 'Instrument', 4),
         ('Martelo', 'Ferramenta para bater em objetos', 'Instrument', 1),
-        ('Serra Circular', 'Ferramenta para corte circular de materias', 'Instrument', 2)
+        ('Serra Circular', 'Ferramenta para corte circular de materias', 'Instrument', 2),
         ('Trator', 'Veículo', 'Machine', 1),
         ('Trator', 'Veículo', 'Machine', 2);
     `);
