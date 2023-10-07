@@ -4,12 +4,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { PersonEntity } from './entities/person.entity';
 import { CreatePersonDto } from './dtos/create-person.dto';
 import { UpdatePersonDto } from './dtos/update-person.dto';
 import { UpdatePasswordDto } from './dtos/update-password.dto';
-import * as crypto from 'crypto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class PersonService {
@@ -18,8 +18,9 @@ export class PersonService {
     private readonly personRepository: Repository<PersonEntity>,
   ) {}
 
-  private hashPassword(password: string): string {
-    return crypto.createHash('sha1').update(password).digest('hex');
+  private async hashPassword(password: string): Promise<string> {
+    const salt = await bcrypt.genSalt();
+    return bcrypt.hash(password, salt);
   }
 
   async create(createPersonDto: CreatePersonDto): Promise<{ id: number }> {
@@ -31,7 +32,7 @@ export class PersonService {
 
     const person = this.personRepository.create({
       ...createPersonDto,
-      password: this.hashPassword(createPersonDto.password),
+      password: await this.hashPassword(createPersonDto.password),
     });
     const created = await this.personRepository.save(person);
     return { id: created.id };
@@ -48,11 +49,21 @@ export class PersonService {
 
     const person = this.personRepository.create({
       ...createPersonDto,
-      password: this.hashPassword(createPersonDto.password),
+      password: await this.hashPassword(createPersonDto.password),
     });
 
     const created = await this.personRepository.save(person);
     return { id: created.id };
+  }
+
+  async findOneByEmail(email: string): Promise<PersonEntity> {
+    const person = await this.personRepository.findOne({ where: { email } });
+
+    if (!person) {
+      throw new NotFoundException('User not found');
+    }
+
+    return person;
   }
 
   async findAllWithFarm(): Promise<PersonEntity[]> {
@@ -154,16 +165,18 @@ export class PersonService {
       throw new NotFoundException(`Person with id ${id} not found`);
     }
 
-    const currentPasswordHashed = crypto
-      .createHash('sha1')
-      .update(updatePasswordDto.currentPassword)
-      .digest('hex');
+    const isCurrentPasswordValid = await bcrypt.compare(
+      updatePasswordDto.currentPassword,
+      person.password,
+    );
 
-    if (currentPasswordHashed !== person.password) {
-      throw new Error('Current password is incorrect.');
+    if (!isCurrentPasswordValid) {
+      throw new BadRequestException('Current password is incorrect.');
     }
 
-    const hashedNewPassword = this.hashPassword(updatePasswordDto.newPassword);
+    const hashedNewPassword = await this.hashPassword(
+      updatePasswordDto.newPassword,
+    );
     await this.personRepository.update(id, { password: hashedNewPassword });
   }
 }
