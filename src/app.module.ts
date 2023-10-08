@@ -6,6 +6,7 @@ import { InstrumentModule } from './instrument/instrument.module';
 import { MaintenanceModule } from './maintenance/maintenance.module';
 import { SchedulingModule } from './scheduling/scheduling.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     InstrumentModule,
     MaintenanceModule,
     SchedulingModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
