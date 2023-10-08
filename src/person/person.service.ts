@@ -66,6 +66,22 @@ export class PersonService {
     return person;
   }
 
+  async findOneByEmailWithFarm(
+    authenticatedUserEmail: string,
+  ): Promise<PersonEntity> {
+    const person = await this.personRepository
+      .createQueryBuilder('person')
+      .where('person.email = :email', { email: authenticatedUserEmail })
+      .leftJoinAndSelect('person.farm', 'farm')
+      .getOne();
+
+    if (!person) {
+      throw new NotFoundException('User not found');
+    }
+
+    return person;
+  }
+
   async findAllWithFarm(): Promise<PersonEntity[]> {
     return await this.personRepository
       .createQueryBuilder('person')
