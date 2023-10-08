@@ -12,7 +12,7 @@ async function bootstrap() {
     res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
     res.header(
       'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept',
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization',
     );
 
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
