@@ -1,7 +1,14 @@
-// auth.controller.ts
-
-import { Controller, Post, Req, Body, UnauthorizedException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Req,
+  Body,
+  Get,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -17,5 +24,23 @@ export class AuthController {
     }
 
     return this.authService.login(user);
+  }
+
+  @Get('getUserByToken')
+  @UseGuards(JwtAuthGuard)
+  async getUserByToken(@Req() request) {
+    const email = request.user.email;
+
+    if (!email) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    const user = await this.authService.getUserByEmail(email);
+
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    return user;
   }
 }

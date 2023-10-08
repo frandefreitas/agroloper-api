@@ -1,6 +1,6 @@
 // auth.service.ts
 
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PersonService } from '../person/person.service';
 import * as bcrypt from 'bcrypt';
@@ -10,7 +10,7 @@ export class AuthService {
   constructor(
     private readonly usersService: PersonService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findOneByEmail(email);
@@ -22,11 +22,18 @@ export class AuthService {
     return null;
   }
 
+  async getUserByEmail(email: number): Promise<any> {
+    const user = await this.usersService.findOneByEmailWithFarm(email);
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+    return user;
+  }
+
   async login(user: any) {
     const payload = { username: user.email, sub: user.id };
     return {
       access_token: this.jwtService.sign(payload),
-      user: await this.usersService.findOneByEmailWithFarm(user.email),
     };
   }
 }
