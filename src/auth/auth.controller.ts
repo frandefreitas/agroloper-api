@@ -29,13 +29,13 @@ export class AuthController {
   @Get('getUserByToken')
   @UseGuards(JwtAuthGuard)
   async getUserByToken(@Req() request) {
-    const email = request.user.email;
+    const userId = request.user.userId;
 
-    if (!email) {
+    if (!userId) {
       throw new UnauthorizedException('User not found');
     }
 
-    const user = await this.authService.getUserByEmail(email);
+    const user = await this.authService.getUserDetails(userId);
 
     if (!user) {
       throw new UnauthorizedException('User not found');

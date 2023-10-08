@@ -10,7 +10,7 @@ export class AuthService {
   constructor(
     private readonly usersService: PersonService,
     private readonly jwtService: JwtService,
-  ) { }
+  ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findOneByEmail(email);
@@ -22,8 +22,8 @@ export class AuthService {
     return null;
   }
 
-  async getUserByEmail(email: number): Promise<any> {
-    const user = await this.usersService.findOneByEmailWithFarm(email);
+  async getUserDetails(userId: number): Promise<any> {
+    const user = await this.usersService.findOneWithFarm(userId);
     if (!user) {
       throw new UnauthorizedException('User not found');
     }
