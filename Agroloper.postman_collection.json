@@ -7,6 +7,53 @@
 	},
 	"item": [
 		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "francisco@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "senha123",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:3000/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by Token",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZyYW5jaXNjb0BleGFtcGxlLmNvbSIsInN1YiI6MTUsImlhdCI6MTY5Njc1NTc5MywiZXhwIjoxNjk2NzYyOTkzfQ.03X8BayFEbrBepoo0PASmLzKIdOLO1Eqo1bHtfGIiHI",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:3000/auth/getUserByToken"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Farm",
 			"item": [
 				{
@@ -213,7 +260,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:3000/maintenance/farm/1"
+						"url": "http://localhost:3000/maintenance/farm/2"
 					},
 					"response": []
 				},
@@ -290,7 +337,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:3000/person/1"
+						"url": "http://localhost:3000/person/15"
 					},
 					"response": []
 				},
@@ -310,7 +357,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Fake User 2\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"user1@example.com\",\r\n    \"person_type\": \"ExternalCollaborator\",\r\n    \"farm\": 2\r\n}",
+							"raw": "{\r\n    \"name\": \"Luiz Dell\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"user1@example.com\",\r\n    \"person_type\": \"ExternalCollaborator\",\r\n    \"farm\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -328,7 +375,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Fake User 2\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"user1@example.com\",\r\n    \"person_type\": \"Administrator\",\r\n    \"farm\": 2\r\n}",
+							"raw": "{\r\n    \"name\": \"Francisco de Freitas\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"francisco@example.com\",\r\n    \"person_type\": \"Administrator\",\r\n    \"farm\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -346,14 +393,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Fake User 2\",\r\n    \"gender\": \"Female\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"user1@example.com\",\r\n    \"person_type\": \"ExternalCollaborator\",\r\n    \"farm\": 1\r\n}",
+							"raw": "{\r\n    \"name\": \"Francisco\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"francisco@example.com\",\r\n    \"person_type\": \"Administrator\",\r\n    \"farm\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:3000/person/16"
+						"url": "http://localhost:3000/person/15"
 					},
 					"response": []
 				},
@@ -389,7 +436,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:3000/person/50"
+						"url": "http://localhost:3000/person/17"
 					},
 					"response": []
 				}
