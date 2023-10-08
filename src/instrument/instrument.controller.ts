@@ -12,12 +12,12 @@ import { InstrumentService } from './instrument.service';
 import { CreateInstrumentDto } from './dtos/create-instrument.dto';
 import { UpdateInstrumentDto } from './dtos/update-instrument.dto';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-import { Roles } from '../auth/roles.decorator';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { RolesGuard } from '../auth/roles.guard';
+// import { Roles } from '../auth/roles.decorator';
+// import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+// import { RolesGuard } from '../auth/roles.guard';
 
 @Controller('instrument')
-@UseGuards(JwtAuthGuard, RolesGuard)
+//@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Instrument')
 export class InstrumentController {
   constructor(private readonly instrumentService: InstrumentService) {}
@@ -55,7 +55,7 @@ export class InstrumentController {
   }
 
   @Delete(':id')
-  @Roles('Administrator')
+  //@Roles('Administrator')
   async remove(@Param('id') id: number): Promise<void> {
     return this.instrumentService.remove(id);
   }
