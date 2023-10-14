@@ -12,8 +12,8 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '172.31.16.0',
-      port: 20,
+      host: 'agroloper-database-2023.cobisdvlkyve.us-east-1.rds.amazonaws.com',
+      port: 3306,
       username: 'agroloper',
       password: 'rejkrljklklmadnk.0493409kdsjk932',
       database: 'agroloper-database-2023',
