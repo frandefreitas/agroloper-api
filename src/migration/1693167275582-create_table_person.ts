@@ -1,9 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
 export class CreateTablePerson1693167275582 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -14,7 +9,7 @@ export class CreateTablePerson1693167275582 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'integer',
             isPrimary: true,
             isGenerated: true,
             generationStrategy: 'increment',
@@ -58,8 +53,8 @@ export class CreateTablePerson1693167275582 implements MigrationInterface {
             ],
           },
           {
-            name: 'farmId',
-            type: 'int',
+            name: 'farmid',
+            type: 'integer',
           },
         ],
       }),
@@ -68,7 +63,7 @@ export class CreateTablePerson1693167275582 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'person',
       new TableForeignKey({
-        columnNames: ['farmId'],
+        columnNames: ['farmid'],
         referencedColumnNames: ['id'],
         referencedTableName: 'farm',
         onDelete: 'CASCADE',

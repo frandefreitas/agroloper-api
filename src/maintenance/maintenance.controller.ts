@@ -48,22 +48,22 @@ export class MaintenanceController {
     return this.maintenanceService.remove(id);
   }
 
-  @Get('person/:personId')
+  @Get('person/:personid')
   findByPersonId(
-    @Param('personId') personId: number,
+    @Param('personid') personid: number,
   ): Promise<MaintenanceEntity[]> {
-    return this.maintenanceService.findByPersonId(personId);
+    return this.maintenanceService.findByPersonId(personid);
   }
 
-  @Get('instrument/:instrumentId')
+  @Get('instrument/:instrumentid')
   findByInstrumentId(
-    @Param('instrumentId') instrumentId: number,
+    @Param('instrumentid') instrumentid: number,
   ): Promise<MaintenanceEntity[]> {
-    return this.maintenanceService.findByInstrumentId(instrumentId);
+    return this.maintenanceService.findByInstrumentId(instrumentid);
   }
 
-  @Get('farm/:farmId')
-  findByFarmId(@Param('farmId') farmId: number): Promise<MaintenanceEntity[]> {
-    return this.maintenanceService.findByFarmId(farmId);
+  @Get('farm/:farmid')
+  findByFarmId(@Param('farmid') farmid: number): Promise<MaintenanceEntity[]> {
+    return this.maintenanceService.findByFarmId(farmid);
   }
 }

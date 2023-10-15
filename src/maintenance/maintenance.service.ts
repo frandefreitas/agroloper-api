@@ -97,12 +97,12 @@ export class MaintenanceService {
     await this.maintenanceRepository.remove(maintenance);
   }
 
-  async findByPersonId(personId: number): Promise<MaintenanceEntity[]> {
+  async findByPersonId(personid: number): Promise<MaintenanceEntity[]> {
     return this.maintenanceRepository
       .createQueryBuilder('maintenance')
       .leftJoinAndSelect('maintenance.instrument', 'instrument')
       .leftJoinAndSelect('maintenance.person', 'person')
-      .where('person.id = :personId', { personId })
+      .where('person.id = :personid', { personid })
       .select([
         'maintenance.id',
         'maintenance.item_type',
@@ -126,12 +126,12 @@ export class MaintenanceService {
       .getMany();
   }
 
-  async findByInstrumentId(instrumentId: number): Promise<MaintenanceEntity[]> {
+  async findByInstrumentId(instrumentid: number): Promise<MaintenanceEntity[]> {
     return this.maintenanceRepository
       .createQueryBuilder('maintenance')
       .leftJoinAndSelect('maintenance.instrument', 'instrument')
       .leftJoinAndSelect('maintenance.person', 'person')
-      .where('instrument.id = :instrumentId', { instrumentId })
+      .where('instrument.id = :instrumentid', { instrumentid })
       .select([
         'maintenance.id',
         'maintenance.item_type',
@@ -155,7 +155,7 @@ export class MaintenanceService {
       .getMany();
   }
 
-  async findByFarmId(farmId: number): Promise<MaintenanceEntity[]> {
+  async findByFarmId(farmid: number): Promise<MaintenanceEntity[]> {
     const query = `
       SELECT
         maintenance.id AS maintenance_id,
@@ -177,16 +177,16 @@ export class MaintenanceService {
         person.email AS person_email,
         person.person_type AS person_person_type
       FROM maintenance
-      LEFT JOIN instrument ON maintenance.instrumentId = instrument.id
-      LEFT JOIN person AS person ON maintenance.personId = person.id
-      WHERE person.farmId = ?
+      LEFT JOIN instrument ON maintenance.instrumentid = instrument.id
+      LEFT JOIN person AS person ON maintenance.personid = person.id
+      WHERE person.farmid = ?
     `;
 
-    const results = await this.maintenanceRepository.query(query, [farmId]);
+    const results = await this.maintenanceRepository.query(query, [farmid]);
 
     if (!results) {
       throw new NotFoundException(
-        `No maintenance records found for Farm ID ${farmId}`,
+        `No maintenance records found for Farm ID ${farmid}`,
       );
     }
 

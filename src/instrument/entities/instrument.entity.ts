@@ -27,6 +27,6 @@ export class InstrumentEntity {
   type: string;
 
   @ManyToOne(() => FarmEntity)
-  @JoinColumn({ name: 'farmId' })
+  @JoinColumn({ name: 'farmid' })
   farm: FarmEntity;
 }

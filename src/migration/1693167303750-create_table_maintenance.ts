@@ -8,14 +8,14 @@ export class CreateTableMaintenance1693167303750 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'integer',
             isPrimary: true,
             isGenerated: true,
             generationStrategy: 'increment',
           },
           {
-            name: 'instrumentId',
-            type: 'int',
+            name: 'instrumentid',
+            type: 'integer',
           },
           {
             name: 'item_type',
@@ -23,17 +23,17 @@ export class CreateTableMaintenance1693167303750 implements MigrationInterface {
             enum: ['Instrument', 'Machine'],
           },
           {
-            name: 'personId',
-            type: 'int',
+            name: 'personid',
+            type: 'integer',
           },
           {
             name: 'hour_meter',
-            type: 'int',
+            type: 'integer',
             isNullable: true,
           },
           {
             name: 'km',
-            type: 'int',
+            type: 'integer',
             isNullable: true,
           },
           {
@@ -47,7 +47,7 @@ export class CreateTableMaintenance1693167303750 implements MigrationInterface {
           },
           {
             name: 'date_time',
-            type: 'datetime',
+            type: 'timestamp',
           },
           {
             name: 'action',
@@ -56,13 +56,13 @@ export class CreateTableMaintenance1693167303750 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            columnNames: ['instrumentId'],
+            columnNames: ['instrumentid'],
             referencedTableName: 'instrument',
             referencedColumnNames: ['id'],
             onDelete: 'CASCADE',
           },
           {
-            columnNames: ['personId'],
+            columnNames: ['personid'],
             referencedTableName: 'person',
             referencedColumnNames: ['id'],
             onDelete: 'CASCADE',

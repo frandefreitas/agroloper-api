@@ -22,13 +22,13 @@ export class SchedulingService {
     return scheduling;
   }
 
-  async findSchedulingsByFarm(farmId: number): Promise<SchedulingEntity[]> {
+  async findSchedulingsByFarm(farmid: number): Promise<SchedulingEntity[]> {
     return this.schedulingRepository
       .createQueryBuilder('scheduling')
       .leftJoinAndSelect('scheduling.person', 'person')
       .leftJoinAndSelect('scheduling.instrument', 'instrument')
       .leftJoinAndSelect('person.farm', 'farm')
-      .where('farm.id = :farmId', { farmId })
+      .where('farm.id = :farmid', { farmid })
       .select([
         'scheduling.id',
         'scheduling.scheduled_date_time',
@@ -42,13 +42,13 @@ export class SchedulingService {
       .getMany();
   }
 
-  async findSchedulingsByPerson(personId: number): Promise<SchedulingEntity[]> {
+  async findSchedulingsByPerson(personid: number): Promise<SchedulingEntity[]> {
     return this.schedulingRepository
       .createQueryBuilder('scheduling')
       .leftJoinAndSelect('scheduling.person', 'person')
       .leftJoinAndSelect('scheduling.instrument', 'instrument')
       .leftJoinAndSelect('person.farm', 'farm')
-      .where('person.id = :personId', { personId })
+      .where('person.id = :personid', { personid })
       .select([
         'scheduling.id',
         'scheduling.scheduled_date_time',
@@ -63,13 +63,13 @@ export class SchedulingService {
   }
 
   async findSchedulingsByInstrument(
-    instrumentId: number,
+    instrumentid: number,
   ): Promise<SchedulingEntity[]> {
     return this.schedulingRepository
       .createQueryBuilder('scheduling')
       .leftJoinAndSelect('scheduling.person', 'person')
       .leftJoinAndSelect('scheduling.instrument', 'instrument')
-      .where('instrument.id = :instrumentId', { instrumentId })
+      .where('instrument.id = :instrumentid', { instrumentid })
       .select([
         'scheduling.id',
         'scheduling.scheduled_date_time',

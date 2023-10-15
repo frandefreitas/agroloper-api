@@ -103,7 +103,7 @@ export class PersonService {
       .getMany();
   }
 
-  async findAllByFarm(farmId: number | undefined): Promise<PersonEntity[]> {
+  async findAllByFarm(farmid: number | undefined): Promise<PersonEntity[]> {
     const queryBuilder = this.personRepository
       .createQueryBuilder('person')
       .leftJoinAndSelect('person.farm', 'farm')
@@ -122,8 +122,8 @@ export class PersonService {
         'farm.state',
       ]);
 
-    if (farmId !== undefined) {
-      queryBuilder.where('farm.id = :farmId', { farmId });
+    if (farmid !== undefined) {
+      queryBuilder.where('farm.id = :farmid', { farmid });
     }
 
     return await queryBuilder.getMany();

@@ -53,6 +53,6 @@ export class PersonEntity {
   person_type: PersonType;
 
   @ManyToOne(() => FarmEntity)
-  @JoinColumn({ name: 'farmId' })
+  @JoinColumn({ name: 'farmid' })
   farm: FarmEntity;
 }

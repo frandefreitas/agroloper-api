@@ -8,22 +8,22 @@ export class CreateTableScheduling1693167318026 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'integer',
             isPrimary: true,
             isGenerated: true,
             generationStrategy: 'increment',
           },
           {
-            name: 'personId',
-            type: 'int',
+            name: 'personid',
+            type: 'integer',
           },
           {
-            name: 'instrumentId',
-            type: 'int',
+            name: 'instrumentid',
+            type: 'integer',
           },
           {
             name: 'scheduled_date_time',
-            type: 'datetime',
+            type: 'timestamp',
           },
           {
             name: 'scheduling_description',
@@ -32,13 +32,13 @@ export class CreateTableScheduling1693167318026 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            columnNames: ['personId'],
+            columnNames: ['personid'],
             referencedTableName: 'person',
             referencedColumnNames: ['id'],
             onDelete: 'CASCADE',
           },
           {
-            columnNames: ['instrumentId'],
+            columnNames: ['instrumentid'],
             referencedTableName: 'instrument',
             referencedColumnNames: ['id'],
             onDelete: 'CASCADE',

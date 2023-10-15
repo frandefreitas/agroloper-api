@@ -9,7 +9,7 @@ export class CreateSchedulingDto {
     name: 'person',
   })
   @IsNotEmpty()
-  personId: number;
+  personid: number;
 
   @ApiProperty({
     type: 'integer',
@@ -17,7 +17,7 @@ export class CreateSchedulingDto {
     description: 'ID of the instrument or machine',
   })
   @IsInt()
-  instrumentId: number;
+  instrumentid: number;
 
   @ApiProperty({
     type: 'string',

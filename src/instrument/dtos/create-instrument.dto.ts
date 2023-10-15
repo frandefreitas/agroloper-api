@@ -26,5 +26,5 @@ export class CreateInstrumentDto {
     required: true,
   })
   @IsNotEmpty()
-  farmId: number;
+  farmid: number;
 }

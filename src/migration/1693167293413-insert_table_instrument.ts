@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 export class InsertTableInstrument1693167293413 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      INSERT INTO instrument (name, description, type, farmId)
+      INSERT INTO instrument (name, description, type, farmid)
       VALUES
         ('Furadeira', 'Ferramenta para perfuração de furos', 'Instrument', 1),
         ('Serra Elétrica', 'Ferramenta para corte de materiais', 'Instrument', 2),

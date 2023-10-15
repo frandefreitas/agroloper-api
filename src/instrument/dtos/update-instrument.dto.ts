@@ -30,5 +30,5 @@ export class UpdateInstrumentDto {
     name: 'farm',
   })
   @IsOptional()
-  farmId: number;
+  farmid: number;
 }

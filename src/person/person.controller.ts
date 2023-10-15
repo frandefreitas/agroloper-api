@@ -43,9 +43,9 @@ export class PersonController {
 
   @Get('farm/:id')
   findAllByFarm(
-    @Param('id') farmId: number | undefined,
+    @Param('id') farmid: number | undefined,
   ): Promise<PersonEntity[]> {
-    return this.personService.findAllByFarm(farmId);
+    return this.personService.findAllByFarm(farmid);
   }
 
   @Get(':id')

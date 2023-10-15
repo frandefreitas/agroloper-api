@@ -8,7 +8,7 @@ export class CreateTableInstrument1693167289343 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'integer',
             isPrimary: true,
             isGenerated: true,
             generationStrategy: 'increment',
@@ -28,13 +28,13 @@ export class CreateTableInstrument1693167289343 implements MigrationInterface {
             default: "'Instrument'",
           },
           {
-            name: 'farmId',
-            type: 'int',
+            name: 'farmid',
+            type: 'integer',
           },
         ],
         foreignKeys: [
           {
-            columnNames: ['farmId'],
+            columnNames: ['farmid'],
             referencedTableName: 'farm',
             referencedColumnNames: ['id'],
             onDelete: 'CASCADE',

@@ -33,11 +33,11 @@ export class InstrumentService {
       .getRawMany();
   }
 
-  async findAllByFarm(farmId: number): Promise<InstrumentEntity[]> {
+  async findAllByFarm(farmid: number): Promise<InstrumentEntity[]> {
     const instruments = await this.instrumentRepository
       .createQueryBuilder('instrument')
       .leftJoin('instrument.farm', 'farm')
-      .where('farm.id = :farmId', { farmId })
+      .where('farm.id = :farmid', { farmid })
       .select([
         'instrument.id',
         'instrument.name',

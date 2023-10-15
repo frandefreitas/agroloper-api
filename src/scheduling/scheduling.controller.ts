@@ -24,19 +24,19 @@ export class SchedulingController {
     return this.schedulingService.create(createSchedulingDto);
   }
 
-  @Get('farm/:farmId')
-  findSchedulingsByFarm(@Param('farmId') farmId: string) {
-    return this.schedulingService.findSchedulingsByFarm(+farmId);
+  @Get('farm/:farmid')
+  findSchedulingsByFarm(@Param('farmid') farmid: string) {
+    return this.schedulingService.findSchedulingsByFarm(+farmid);
   }
 
-  @Get('person/:personId')
-  findSchedulingsByPerson(@Param('personId') personId: string) {
-    return this.schedulingService.findSchedulingsByPerson(+personId);
+  @Get('person/:personid')
+  findSchedulingsByPerson(@Param('personid') personid: string) {
+    return this.schedulingService.findSchedulingsByPerson(+personid);
   }
 
-  @Get('instrument/:instrumentId')
-  findSchedulingsByInstrument(@Param('instrumentId') instrumentId: string) {
-    return this.schedulingService.findSchedulingsByInstrument(+instrumentId);
+  @Get('instrument/:instrumentid')
+  findSchedulingsByInstrument(@Param('instrumentid') instrumentid: string) {
+    return this.schedulingService.findSchedulingsByInstrument(+instrumentid);
   }
 
   @Get()

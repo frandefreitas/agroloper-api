@@ -40,9 +40,9 @@ export class InstrumentController {
     return this.instrumentService.findOne(id);
   }
 
-  @Get('farm/:farmId')
-  async findAllByFarm(@Param('farmId') farmId: number): Promise<any[]> {
-    return this.instrumentService.findAllByFarm(farmId);
+  @Get('farm/:farmid')
+  async findAllByFarm(@Param('farmid') farmid: number): Promise<any[]> {
+    return this.instrumentService.findAllByFarm(farmid);
   }
 
   @Put(':id')

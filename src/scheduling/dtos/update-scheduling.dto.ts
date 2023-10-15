@@ -9,7 +9,7 @@ export class UpdateSchedulingDto {
     name: 'person',
   })
   @IsOptional()
-  personId?: number;
+  personid?: number;
 
   @ApiProperty({
     type: 'integer',
@@ -18,7 +18,7 @@ export class UpdateSchedulingDto {
   })
   @IsInt()
   @IsOptional()
-  instrumentId?: number;
+  instrumentid?: number;
 
   @ApiProperty({
     type: 'string',

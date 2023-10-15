@@ -38,7 +38,7 @@ export class MaintenanceEntity {
   @Column('text')
   summary: string;
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   date_time: Date;
 
   @Column('text')

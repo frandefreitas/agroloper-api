@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-
 import { FarmModule } from './farm/farm.module';
 import { PersonModule } from './person/person.module';
 import { InstrumentModule } from './instrument/instrument.module';
@@ -11,12 +10,12 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'agroloper-database-2023.cobisdvlkyve.us-east-1.rds.amazonaws.com',
-      port: 3306,
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
       username: 'agroloper',
-      password: 'rejkrljklklmadnk.0493409kdsjk932',
-      database: 'agroloper-database-2023',
+      password: 'kfd0f9d0fdguj4uj3kj.m4k3m',
+      database: 'agroloper',
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
       migrations: [`${__dirname}/migration/{.ts,*.js}`],
       migrationsRun: true,
@@ -32,13 +31,3 @@ import { AuthModule } from './auth/auth.module';
   providers: [],
 })
 export class AppModule {}
-
-// type: 'mysql',
-// host: 'localhost',
-// port: 3306,
-// username: 'soci',
-// password: 'rejkrljklklmadnk@0493409kdsjk932',
-// database: 'agroloper-database-2023',
-// entities: [`${__dirname}/**/*.entity{.js,.ts}`],
-// migrations: [`${__dirname}/migration/{.ts,*.js}`],
-// migrationsRun: true,

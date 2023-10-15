@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 export class InsertTableScheduling1693167323776 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      INSERT INTO scheduling (personId, instrumentId, scheduled_date_time, scheduling_description)
+      INSERT INTO scheduling (personid, instrumentid, scheduled_date_time, scheduling_description)
       VALUES
         (1, 1, '2023-08-27 10:00:00', 'Agendamento 1'),
         (2, 1, '2023-08-27 11:00:00', 'Agendamento 2'),

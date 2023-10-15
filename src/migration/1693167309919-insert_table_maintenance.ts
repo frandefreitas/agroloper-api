@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 export class InsertTableMaintenance1693167309919 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      INSERT INTO maintenance (instrumentId, item_type, personId, hour_meter, km, revision_type, summary, date_time, action)
+      INSERT INTO maintenance (instrumentid, item_type, personid, hour_meter, km, revision_type, summary, date_time, action)
       VALUES
         (1, 'Instrument', 1, 100, 5000, 'Preventive', 'Manutenção preventiva da ferramenta', '2023-08-27 10:00:00', 'Verificação geral'),
         (2, 'Machine', 2, 200, 6000, 'Corrective', 'Manutenção corretiva da máquina', '2023-08-27 11:00:00', 'Substituição de peças'),

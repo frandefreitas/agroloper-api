@@ -13,7 +13,7 @@ export class SchedulingEntity {
   @ManyToOne(() => InstrumentEntity)
   instrument: InstrumentEntity;
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   scheduled_date_time: Date;
 
   @Column('text')

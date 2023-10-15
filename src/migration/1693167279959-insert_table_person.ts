@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 export class InsertTablePerson1693167279959 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      INSERT INTO person (name, gender, date_of_birth, password, phone, email, person_type, farmId)
+      INSERT INTO person (name, gender, date_of_birth, password, phone, email, person_type, farmid)
       VALUES
         ('Fake User 1', 'Male', '1990-01-01', '$2b$10$VEHTh1FpoiLP0K2yI0rbqOELsPZ98yh3k2hbRa2DslWTeUa3pX9eW', '123-456-7890', 'user1@example.com', 'Administrator', 1),
         ('Fake User 2', 'Female', '1990-02-02', '$2b$10$VEHTh1FpoiLP0K2yI0rbqOELsPZ98yh3k2hbRa2DslWTeUa3pX9eW', '123-456-7891', 'user2@example.com', 'InternalCollaborator', 1),
