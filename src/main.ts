@@ -9,7 +9,10 @@ async function bootstrap() {
   setupSwagger(app);
 
   app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.header(
+      'Access-Control-Allow-Origin',
+      'https://agroloper-front.vercel.app',
+    );
     res.header(
       'Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept, Authorization',
