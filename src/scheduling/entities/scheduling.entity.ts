@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { PersonEntity } from 'src/person/entities/person.entity';
 import { InstrumentEntity } from 'src/instrument/entities/instrument.entity';
 
@@ -8,9 +14,11 @@ export class SchedulingEntity {
   id: number;
 
   @ManyToOne(() => PersonEntity)
+  @JoinColumn({ name: 'personid' })
   person: PersonEntity;
 
   @ManyToOne(() => InstrumentEntity)
+  @JoinColumn({ name: 'instrumentid' })
   instrument: InstrumentEntity;
 
   @Column({ type: 'timestamp' })

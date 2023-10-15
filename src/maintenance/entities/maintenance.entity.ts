@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { PersonEntity } from 'src/person/entities/person.entity';
 import { InstrumentEntity } from 'src/instrument/entities/instrument.entity';
 
@@ -18,12 +24,14 @@ export class MaintenanceEntity {
   id: number;
 
   @ManyToOne(() => InstrumentEntity)
+  @JoinColumn({ name: 'instrumentid' })
   instrument: InstrumentEntity;
 
   @Column({ enum: ['Instrument', 'Machine'] })
   item_type: string;
 
   @ManyToOne(() => PersonEntity)
+  @JoinColumn({ name: 'personid' })
   person: PersonEntity;
 
   @Column({ nullable: true })

@@ -96,9 +96,15 @@ export class MaintenanceService {
   }
 
   async remove(id: number): Promise<void> {
-    const maintenance = await this.findOne(id);
+    const maintenance = await this.maintenanceRepository.findOne({
+      where: { id },
+    });
 
-    await this.maintenanceRepository.remove(maintenance);
+    if (!maintenance) {
+      throw new Error(`Manutenção com ID ${id} não encontrada`);
+    }
+
+    await this.maintenanceRepository.delete(id);
   }
 
   async findByFarmId(farmid: number): Promise<MaintenanceEntity[]> {
