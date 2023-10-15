@@ -11,10 +11,10 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'dpg-ckllkp8710pc73d9qer0-a',
+      host: 'localhost',
       port: 5432,
       username: 'agroloper',
-      password: 'hIihcV8gs6Ab2yDgY16YP8RSETDKzVGi',
+      password: 'kfd0f9d0fdguj4uj3kj.m4k3m',
       database: 'agroloper',
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
       migrations: [`${__dirname}/migration/{.ts,*.js}`],

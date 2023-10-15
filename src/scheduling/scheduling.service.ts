@@ -23,107 +23,122 @@ export class SchedulingService {
   }
 
   async findSchedulingsByFarm(farmid: number): Promise<SchedulingEntity[]> {
-    return this.schedulingRepository
-      .createQueryBuilder('scheduling')
-      .leftJoinAndSelect('scheduling.person', 'person')
-      .leftJoinAndSelect('scheduling.instrument', 'instrument')
-      .leftJoinAndSelect('person.farm', 'farm')
-      .where('farm.id = :farmid', { farmid })
-      .select([
-        'scheduling.id',
-        'scheduling.scheduled_date_time',
-        'person.id',
-        'person.name',
-        'instrument.id',
-        'instrument.name',
-        'farm.id',
-        'farm.name',
-      ])
-      .getMany();
+    const query = `
+      SELECT
+        scheduling.id,
+        scheduling.scheduled_date_time,
+        person.id AS person_id,
+        person.name AS person_name,
+        instrument.id AS instrument_id,
+        instrument.name AS instrument_name,
+        farm.id AS farm_id,
+        farm.name AS farm_name
+      FROM scheduling
+      LEFT JOIN person ON scheduling.personid = person.id
+      LEFT JOIN instrument ON scheduling.instrumentid = instrument.id
+      LEFT JOIN farm ON person.farmid = farm.id
+      WHERE farm.id = $1
+    `;
+
+    const results = await this.schedulingRepository.query(query, [farmid]);
+
+    return results;
   }
 
   async findSchedulingsByPerson(personid: number): Promise<SchedulingEntity[]> {
-    return this.schedulingRepository
-      .createQueryBuilder('scheduling')
-      .leftJoinAndSelect('scheduling.person', 'person')
-      .leftJoinAndSelect('scheduling.instrument', 'instrument')
-      .leftJoinAndSelect('person.farm', 'farm')
-      .where('person.id = :personid', { personid })
-      .select([
-        'scheduling.id',
-        'scheduling.scheduled_date_time',
-        'person.id',
-        'person.name',
-        'instrument.id',
-        'instrument.name',
-        'farm.id',
-        'farm.name',
-      ])
-      .getMany();
+    const query = `
+      SELECT
+        scheduling.id,
+        scheduling.scheduled_date_time,
+        person.id AS person_id,
+        person.name AS person_name,
+        instrument.id AS instrument_id,
+        instrument.name AS instrument_name,
+        farm.id AS farm_id,
+        farm.name AS farm_name
+      FROM scheduling
+      LEFT JOIN person ON scheduling.personid = person.id
+      LEFT JOIN instrument ON scheduling.instrumentid = instrument.id
+      LEFT JOIN farm ON person.farmid = farm.id
+      WHERE person.id = $1
+    `;
+
+    const results = await this.schedulingRepository.query(query, [personid]);
+
+    return results;
   }
 
   async findSchedulingsByInstrument(
     instrumentid: number,
   ): Promise<SchedulingEntity[]> {
-    return this.schedulingRepository
-      .createQueryBuilder('scheduling')
-      .leftJoinAndSelect('scheduling.person', 'person')
-      .leftJoinAndSelect('scheduling.instrument', 'instrument')
-      .where('instrument.id = :instrumentid', { instrumentid })
-      .select([
-        'scheduling.id',
-        'scheduling.scheduled_date_time',
-        'person.id',
-        'person.name',
-        'instrument.id',
-        'instrument.name',
-      ])
-      .getMany();
+    const query = `
+      SELECT
+        scheduling.id,
+        scheduling.scheduled_date_time,
+        person.id AS person_id,
+        person.name AS person_name,
+        instrument.id AS instrument_id,
+        instrument.name AS instrument_name
+      FROM scheduling
+      LEFT JOIN person ON scheduling.personid = person.id
+      LEFT JOIN instrument ON scheduling.instrumentid = instrument.id
+      WHERE instrument.id = $1
+    `;
+
+    const results = await this.schedulingRepository.query(query, [
+      instrumentid,
+    ]);
+
+    return results;
   }
 
   async findAllWithDetails(): Promise<SchedulingEntity[]> {
-    return this.schedulingRepository
-      .createQueryBuilder('scheduling')
-      .leftJoinAndSelect('scheduling.person', 'person')
-      .leftJoinAndSelect('scheduling.instrument', 'instrument')
-      .leftJoinAndSelect('person.farm', 'farm')
-      .select([
-        'scheduling.id',
-        'scheduling.scheduled_date_time',
-        'person.id',
-        'person.name',
-        'instrument.id',
-        'instrument.name',
-        'farm.id',
-        'farm.name',
-      ])
-      .getMany();
+    const query = `
+      SELECT
+        scheduling.id,
+        scheduling.scheduled_date_time,
+        person.id AS person_id,
+        person.name AS person_name,
+        instrument.id AS instrument_id,
+        instrument.name AS instrument_name,
+        farm.id AS farm_id,
+        farm.name AS farm_name
+      FROM scheduling
+      LEFT JOIN person ON scheduling.personid = person.id
+      LEFT JOIN instrument ON scheduling.instrumentid = instrument.id
+      LEFT JOIN farm ON person.farmid = farm.id
+    `;
+
+    const results = await this.schedulingRepository.query(query);
+
+    return results;
   }
 
   async findOneWithDetails(id: number): Promise<SchedulingEntity> {
-    const scheduling = await this.schedulingRepository
-      .createQueryBuilder('scheduling')
-      .leftJoinAndSelect('scheduling.person', 'person')
-      .leftJoinAndSelect('scheduling.instrument', 'instrument')
-      .leftJoinAndSelect('person.farm', 'farm')
-      .where('scheduling.id = :id', { id })
-      .select([
-        'scheduling.id',
-        'scheduling.scheduled_date_time',
-        'person.id',
-        'person.name',
-        'instrument.id',
-        'instrument.name',
-        'farm.id',
-        'farm.name',
-      ])
-      .getOne();
+    const query = `
+      SELECT
+        scheduling.id,
+        scheduling.scheduled_date_time,
+        person.id AS person_id,
+        person.name AS person_name,
+        instrument.id AS instrument_id,
+        instrument.name AS instrument_name,
+        farm.id AS farm_id,
+        farm.name AS farm_name
+      FROM scheduling
+      LEFT JOIN person ON scheduling.personid = person.id
+      LEFT JOIN instrument ON scheduling.instrumentid = instrument.id
+      LEFT JOIN farm ON person.farmid = farm.id
+      WHERE scheduling.id = $1
+    `;
 
-    if (!scheduling) {
+    const scheduling = await this.schedulingRepository.query(query, [id]);
+
+    if (!scheduling || scheduling.length === 0) {
       throw new NotFoundException('Agendamento não encontrado.');
     }
 
-    return scheduling;
+    return scheduling[0];
   }
 
   async update(
