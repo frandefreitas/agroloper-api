@@ -47,4 +47,7 @@ export class CreatePersonDto {
   })
   @IsOptional()
   farm_id: number;
+
+  @IsOptional()
+  status?: boolean;
 }

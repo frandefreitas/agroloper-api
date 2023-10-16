@@ -62,6 +62,12 @@ export class PersonController {
     return await this.personService.update(Number(id), updatePersonDto);
   }
 
+  @Put(':id/status')
+  @ApiBody({ type: UpdatePersonDto })
+  async updateStatusToTrue(@Param('id') id: string): Promise<PersonEntity> {
+    return await this.personService.updateStatusToTrue(Number(id));
+  }
+
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<void> {
     await this.personService.remove(Number(id));

@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export class CreateTablePerson1693167275582 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -56,6 +61,11 @@ export class CreateTablePerson1693167275582 implements MigrationInterface {
             name: 'farmid',
             type: 'integer',
           },
+          {
+            name: 'status',
+            type: 'boolean',
+            default: false,
+          },
         ],
       }),
     );
@@ -72,7 +82,6 @@ export class CreateTablePerson1693167275582 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    // Reverta a migração, removendo a tabela e a chave estrangeira
     await queryRunner.dropForeignKey('person', 'FK_person_farm_id');
     await queryRunner.dropTable('person');
   }

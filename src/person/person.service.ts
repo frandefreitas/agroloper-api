@@ -94,6 +94,7 @@ export class PersonService {
         'person.phone',
         'person.email',
         'person.person_type',
+        'person.status',
         'farm.id',
         'farm.name',
         'farm.description',
@@ -115,6 +116,7 @@ export class PersonService {
         'person.phone',
         'person.email',
         'person.person_type',
+        'person.status',
         'farm.id',
         'farm.name',
         'farm.description',
@@ -142,6 +144,7 @@ export class PersonService {
         'person.phone',
         'person.email',
         'person.person_type',
+        'person.status',
         'farm.id',
         'farm.name',
         'farm.description',
@@ -164,6 +167,18 @@ export class PersonService {
     const person = await this.findOneWithFarm(id);
     const updatedPerson = Object.assign(person, updatePersonDto);
     return await this.personRepository.save(updatedPerson);
+  }
+
+  async updateStatusToTrue(id: number): Promise<PersonEntity> {
+    const person = await this.findOneWithFarm(id);
+
+    if (!person) {
+      throw new NotFoundException(`Person with id ${id} not found`);
+    }
+
+    person.status = true;
+
+    return await this.personRepository.save(person);
   }
 
   async remove(id: number): Promise<void> {
