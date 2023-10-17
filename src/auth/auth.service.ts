@@ -1,6 +1,9 @@
-// auth.service.ts
-
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  UnauthorizedException,
+  forwardRef,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PersonService } from '../person/person.service';
 import * as bcrypt from 'bcrypt';
@@ -8,12 +11,13 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: PersonService,
+    @Inject(forwardRef(() => PersonService))
+    private readonly personService: PersonService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.usersService.findOneByEmail(email);
+    const user = await this.personService.findOneByEmail(email);
 
     if (
       user &&
@@ -27,7 +31,7 @@ export class AuthService {
   }
 
   async getUserDetails(userId: number): Promise<any> {
-    const user = await this.usersService.findOneWithFarm(userId);
+    const user = await this.personService.findOneWithFarm(userId);
     if (!user) {
       throw new UnauthorizedException('User not found');
     }
@@ -40,5 +44,20 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  async canUserRemoveInstrument(userToken: string): Promise<boolean> {
+    const decodedToken = this.jwtService.decode(userToken) as any;
+
+    if (!decodedToken || !decodedToken.sub) {
+      throw new UnauthorizedException('Invalid token.');
+    }
+
+    const user = await this.getUserDetails(decodedToken.sub);
+
+    if (user && user.person_type === 'Administrator') {
+      return true;
+    }
+    return false;
   }
 }

@@ -7,6 +7,8 @@ import {
   Put,
   Delete,
   UseGuards,
+  UnauthorizedException,
+  Req,
 } from '@nestjs/common';
 import { InstrumentService } from './instrument.service';
 import { CreateInstrumentDto } from './dtos/create-instrument.dto';
@@ -55,8 +57,14 @@ export class InstrumentController {
   }
 
   @Delete(':id')
-  //@Roles('Administrator')
-  async remove(@Param('id') id: number): Promise<void> {
-    return this.instrumentService.remove(id);
+  async remove(@Param('id') id: string, @Req() request: Request) {
+    const authHeader = (request.headers as any).authorization;
+    const userToken = authHeader && authHeader.split(' ')[1];
+
+    if (!userToken) {
+      throw new UnauthorizedException('No token provided.');
+    }
+
+    return await this.instrumentService.remove(+id, userToken);
   }
 }

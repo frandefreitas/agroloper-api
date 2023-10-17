@@ -6,6 +6,8 @@ import {
   Delete,
   Param,
   Body,
+  UnauthorizedException,
+  Req,
 } from '@nestjs/common';
 import { MaintenanceService } from './maintenance.service';
 import { CreateMaintenanceDto } from './dtos/create-maintenance.dto';
@@ -44,8 +46,15 @@ export class MaintenanceController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number): Promise<void> {
-    return this.maintenanceService.remove(id);
+  async remove(@Param('id') id: string, @Req() request: Request) {
+    const authHeader = (request.headers as any).authorization;
+    const userToken = authHeader && authHeader.split(' ')[1];
+
+    if (!userToken) {
+      throw new UnauthorizedException('No token provided.');
+    }
+
+    return await this.maintenanceService.remove(+id, userToken);
   }
 
   @Get('person/:personid')

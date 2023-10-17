@@ -19,7 +19,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "francisco@example.com",
+									"value": "luan@example.com",
 									"type": "text"
 								},
 								{
@@ -124,7 +124,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:3000/farm/9"
+						"url": "http://localhost:3000/farm/12"
 					},
 					"response": []
 				}
@@ -156,7 +156,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:3000/instrument/farm/2"
+						"url": "http://localhost:3000/instrument/farm/1"
 					},
 					"response": []
 				},
@@ -199,8 +199,17 @@
 				{
 					"name": "Delete Instrument",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZyYW5jaXNjb0BtYWlsLmNvbSIsInN1YiI6MTYsImlhdCI6MTY5NzU3ODAzNSwiZXhwIjoxNjk3NTg1MjM1fQ.LvEBM2zs06EhqWA7Q60tY64NIA-n57LJRGvavVa8Wzc",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{}",
@@ -210,7 +219,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:3000/instrument/11"
+						"url": "http://localhost:3000/instrument/5"
 					},
 					"response": []
 				}
@@ -260,7 +269,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:3000/maintenance/farm/2"
+						"url": "http://localhost:3000/maintenance/farm/1"
 					},
 					"response": []
 				},
@@ -271,7 +280,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"item_type\": \"Instrument\",\r\n    \"hour_meter\": 100,\r\n    \"km\": 5000,\r\n    \"revision_type\": \"Preventive\",\r\n    \"summary\": \"Manutenção preventiva da ferramenta\",\r\n    \"date_time\": \"2023-08-27T13:00:00.000Z\",\r\n    \"action\": \"Verificação geral\",\r\n    \"instrument\": 1,\r\n    \"person\": 4\r\n}",
+							"raw": "{\r\n    \"item_type\": \"Instrument\",\r\n    \"hour_meter\": 100,\r\n    \"km\": 5000,\r\n    \"revision_type\": \"Preventive\",\r\n    \"summary\": \"Manutenção preventiva da ferramenta\",\r\n    \"date_time\": \"2022-09-10T13:00:00.000Z\",\r\n    \"action\": \"Verificação geral\",\r\n    \"instrument\": 1,\r\n    \"person\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -303,8 +312,17 @@
 				{
 					"name": "Delete Maintenance",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZyYW5jaXNjb0BtYWlsLmNvbSIsInN1YiI6MTYsImlhdCI6MTY5NzU3ODY3MCwiZXhwIjoxNjk3NTg1ODcwfQ.44R5Vjj-Dj7E-MVrVHoqxX-sdMxaT12ZUCj-FcEdw7E",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{}",
@@ -314,7 +332,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:3000/maintenance/22"
+						"url": "http://localhost:3000/maintenance/10"
 					},
 					"response": []
 				}
@@ -346,7 +364,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:3000/person/farm/3"
+						"url": "http://localhost:3000/person/farm/1"
 					},
 					"response": []
 				},
@@ -357,7 +375,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Luiz Dell\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"user1@example.com\",\r\n    \"person_type\": \"ExternalCollaborator\",\r\n    \"farm\": 1\r\n}",
+							"raw": "{\r\n    \"name\": \"Luan\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"luan@example.com\",\r\n    \"person_type\": \"ExternalCollaborator\",\r\n    \"farm\": 1,\r\n    \"status\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -375,7 +393,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Francisco de Freitas\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"francisco@example.com\",\r\n    \"person_type\": \"Administrator\",\r\n    \"farm\": 1\r\n}",
+							"raw": "{\r\n    \"name\": \"Francisco de Freitas\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"francisco@mail.com\",\r\n    \"person_type\": \"Administrator\",\r\n    \"farm\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -401,6 +419,30 @@
 							}
 						},
 						"url": "http://localhost:3000/person/15"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Person Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imx1YW5AZXhhbXBsZS5jb20iLCJzdWIiOjI0LCJpYXQiOjE2OTc1Nzg1MTYsImV4cCI6MTY5NzU4NTcxNn0.nct9oUlsWNp7AXFBPwXVhDPf7Oe5P2jG80X8c0RCQCE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/person/23/status"
 					},
 					"response": []
 				},
@@ -436,7 +478,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:3000/person/17"
+						"url": "http://localhost:3000/person/10"
 					},
 					"response": []
 				}
@@ -522,7 +564,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:3000/scheduling/11"
+						"url": "http://localhost:3000/scheduling/30"
 					},
 					"response": []
 				},
@@ -530,7 +572,13 @@
 					"name": "Delete Scheduling",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZyYW5jaXNjb0BtYWlsLmNvbSIsInN1YiI6MTYsImlhdCI6MTY5NzU3ODY3MCwiZXhwIjoxNjk3NTg1ODcwfQ.44R5Vjj-Dj7E-MVrVHoqxX-sdMxaT12ZUCj-FcEdw7E",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{}",

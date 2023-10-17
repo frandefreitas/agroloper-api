@@ -1,16 +1,22 @@
 // src/scheduling/scheduling.service.ts
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SchedulingEntity } from './entities/scheduling.entity';
 import { CreateSchedulingDto } from './dtos/create-scheduling.dto';
 import { UpdateSchedulingDto } from './dtos/update-scheduling.dto';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class SchedulingService {
   constructor(
     @InjectRepository(SchedulingEntity)
     private readonly schedulingRepository: Repository<SchedulingEntity>,
+    private readonly authService: AuthService,
   ) {}
 
   async create(
@@ -161,7 +167,15 @@ export class SchedulingService {
     return scheduling;
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: number, userToken: string): Promise<void> {
+    const canRemove = await this.authService.canUserRemoveInstrument(userToken);
+
+    if (!canRemove) {
+      throw new UnauthorizedException(
+        `User does not have permission to remove instruments.`,
+      );
+    }
+
     const scheduling = await this.schedulingRepository.findOne({
       where: { id },
     });

@@ -7,6 +7,8 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { SchedulingService } from './scheduling.service';
 import { CreateSchedulingDto } from './dtos/create-scheduling.dto';
@@ -59,7 +61,14 @@ export class SchedulingController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.schedulingService.remove(+id);
+  async remove(@Param('id') id: string, @Req() request: Request) {
+    const authHeader = (request.headers as any).authorization;
+    const userToken = authHeader && authHeader.split(' ')[1];
+
+    if (!userToken) {
+      throw new UnauthorizedException('No token provided.');
+    }
+
+    return await this.schedulingService.remove(+id, userToken);
   }
 }

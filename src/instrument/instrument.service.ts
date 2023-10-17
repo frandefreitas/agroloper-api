@@ -1,15 +1,21 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { InstrumentEntity } from './entities/instrument.entity';
 import { CreateInstrumentDto } from './dtos/create-instrument.dto';
 import { UpdateInstrumentDto } from './dtos/update-instrument.dto';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class InstrumentService {
   constructor(
     @InjectRepository(InstrumentEntity)
     private readonly instrumentRepository: Repository<InstrumentEntity>,
+    private readonly authService: AuthService,
   ) {}
 
   async create(createInstrumentDto: CreateInstrumentDto): Promise<number> {
@@ -83,7 +89,15 @@ export class InstrumentService {
     return id;
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: number, userToken: string): Promise<void> {
+    const canRemove = await this.authService.canUserRemoveInstrument(userToken);
+
+    if (!canRemove) {
+      throw new UnauthorizedException(
+        `User does not have permission to remove instruments.`,
+      );
+    }
+
     const instrument = await this.instrumentRepository.findOne({
       where: { id },
     });
