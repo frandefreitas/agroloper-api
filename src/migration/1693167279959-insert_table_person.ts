@@ -5,7 +5,7 @@ export class InsertTablePerson1693167279959 implements MigrationInterface {
     await queryRunner.query(`
       INSERT INTO person (name, gender, date_of_birth, password, phone, email, person_type, farmid, status)
       VALUES
-        ('Fake User 1', 'Male', '1990-01-01', '$2b$10$VEHTh1FpoiLP0K2yI0rbqOELsPZ98yh3k2hbRa2DslWTeUa3pX9eW', '123-456-7890', 'user1@example.com', 'Administrator', 1, true),
+        ('Luiz Graciano', 'Male', '1990-01-01', '$2b$10$VEHTh1FpoiLP0K2yI0rbqOELsPZ98yh3k2hbRa2DslWTeUa3pX9eW', '123-456-7890', 'luiz@mail.com', 'Administrator', 1, true),
         ('Fake User 2', 'Female', '1990-02-02', '$2b$10$VEHTh1FpoiLP0K2yI0rbqOELsPZ98yh3k2hbRa2DslWTeUa3pX9eW', '123-456-7891', 'user2@example.com', 'InternalCollaborator', 1, true),
         ('Fake User 3', 'Male', '1990-03-03', '$2b$10$VEHTh1FpoiLP0K2yI0rbqOELsPZ98yh3k2hbRa2DslWTeUa3pX9eW', '123-456-7892', 'user3@example.com', 'ExternalCollaborator', 1, true),
         ('Fake User 4', 'Female', '1990-04-04', '$2b$10$VEHTh1FpoiLP0K2yI0rbqOELsPZ98yh3k2hbRa2DslWTeUa3pX9eW', '123-456-7893', 'user4@example.com', 'Administrator', 2, true),
