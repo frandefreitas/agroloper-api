@@ -7,6 +7,8 @@ import {
   Put,
   Delete,
   NotFoundException,
+  Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { PersonService } from './person.service';
 import { PersonEntity } from './entities/person.entity';
@@ -60,6 +62,19 @@ export class PersonController {
     @Body() updatePersonDto: UpdatePersonDto,
   ): Promise<PersonEntity> {
     return await this.personService.update(Number(id), updatePersonDto);
+  }
+
+  @Put(':id/status')
+  @ApiBody({ type: UpdatePersonDto })
+  async updateStatusToTrue(@Param('id') id: string, @Req() request: Request) {
+    const authHeader = (request.headers as any).authorization;
+    const userToken = authHeader && authHeader.split(' ')[1];
+
+    if (!userToken) {
+      throw new UnauthorizedException('No token provided.');
+    }
+
+    return await this.personService.updateStatusToTrue(Number(id), userToken);
   }
 
   @Delete(':id')

@@ -1,7 +1,10 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
+  forwardRef,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -9,6 +12,7 @@ import { PersonEntity } from './entities/person.entity';
 import { CreatePersonDto } from './dtos/create-person.dto';
 import { UpdatePersonDto } from './dtos/update-person.dto';
 import { UpdatePasswordDto } from './dtos/update-password.dto';
+import { AuthService } from 'src/auth/auth.service';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -16,6 +20,9 @@ export class PersonService {
   constructor(
     @InjectRepository(PersonEntity)
     private readonly personRepository: Repository<PersonEntity>,
+
+    @Inject(forwardRef(() => AuthService))
+    private readonly authService: AuthService,
   ) {}
 
   private async hashPassword(password: string): Promise<string> {
@@ -94,6 +101,7 @@ export class PersonService {
         'person.phone',
         'person.email',
         'person.person_type',
+        'person.status',
         'farm.id',
         'farm.name',
         'farm.description',
@@ -115,6 +123,7 @@ export class PersonService {
         'person.phone',
         'person.email',
         'person.person_type',
+        'person.status',
         'farm.id',
         'farm.name',
         'farm.description',
@@ -142,6 +151,7 @@ export class PersonService {
         'person.phone',
         'person.email',
         'person.person_type',
+        'person.status',
         'farm.id',
         'farm.name',
         'farm.description',
@@ -164,6 +174,29 @@ export class PersonService {
     const person = await this.findOneWithFarm(id);
     const updatedPerson = Object.assign(person, updatePersonDto);
     return await this.personRepository.save(updatedPerson);
+  }
+
+  async updateStatusToTrue(
+    id: number,
+    userToken: string,
+  ): Promise<PersonEntity> {
+    const canRemove = await this.authService.canUserRemoveInstrument(userToken);
+
+    if (!canRemove) {
+      throw new UnauthorizedException(
+        `User does not have permission to remove instruments.`,
+      );
+    }
+
+    const person = await this.findOneWithFarm(id);
+
+    if (!person) {
+      throw new NotFoundException(`Person with id ${id} not found`);
+    }
+
+    person.status = true;
+
+    return await this.personRepository.save(person);
   }
 
   async remove(id: number): Promise<void> {

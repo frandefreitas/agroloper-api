@@ -52,6 +52,9 @@ export class PersonEntity {
   })
   person_type: PersonType;
 
+  @Column({ default: false })
+  status: boolean;
+
   @ManyToOne(() => FarmEntity)
   @JoinColumn({ name: 'farmid' })
   farm: FarmEntity;

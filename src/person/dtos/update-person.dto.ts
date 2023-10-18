@@ -55,4 +55,7 @@ export class UpdatePersonDto {
   })
   @IsOptional()
   farm_id?: number;
+
+  @IsOptional()
+  status?: boolean;
 }
