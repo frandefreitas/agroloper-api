@@ -1,0 +1,110 @@
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { InstrumentEntity } from './entities/instrument.entity';
+import { CreateInstrumentDto } from './dtos/create-instrument.dto';
+import { UpdateInstrumentDto } from './dtos/update-instrument.dto';
+import { AuthService } from 'src/auth/auth.service';
+
+@Injectable()
+export class InstrumentService {
+  constructor(
+    @InjectRepository(InstrumentEntity)
+    private readonly instrumentRepository: Repository<InstrumentEntity>,
+    private readonly authService: AuthService,
+  ) {}
+
+  async create(createInstrumentDto: CreateInstrumentDto): Promise<number> {
+    const instrument = this.instrumentRepository.create(createInstrumentDto);
+    const savedInstrument = await this.instrumentRepository.save(instrument);
+    return savedInstrument.id;
+  }
+
+  async findAll(): Promise<InstrumentEntity[]> {
+    return this.instrumentRepository
+      .createQueryBuilder('instrument')
+      .leftJoin('instrument.farm', 'farm')
+      .select([
+        'instrument.id',
+        'instrument.name',
+        'instrument.description',
+        'instrument.type',
+        'farm.name',
+        'farm.id',
+      ])
+      .getRawMany();
+  }
+
+  async findAllByFarm(farmid: number): Promise<InstrumentEntity[]> {
+    const instruments = await this.instrumentRepository
+      .createQueryBuilder('instrument')
+      .leftJoin('instrument.farm', 'farm')
+      .where('farm.id = :farmid', { farmid })
+      .select([
+        'instrument.id',
+        'instrument.name',
+        'instrument.description',
+        'instrument.type',
+        'farm.name',
+        'farm.id',
+      ])
+      .getRawMany();
+
+    return instruments;
+  }
+
+  async findOne(id: number): Promise<InstrumentEntity> {
+    const instrument = await this.instrumentRepository
+      .createQueryBuilder('instrument')
+      .leftJoin('instrument.farm', 'farm')
+      .where('instrument.id = :id', { id })
+      .select([
+        'instrument.id',
+        'instrument.name',
+        'instrument.description',
+        'instrument.type',
+        'farm.name',
+        'farm.id',
+      ])
+      .getRawOne();
+
+    if (!instrument) {
+      throw new NotFoundException(`Instrument with ID ${id} not found`);
+    }
+
+    return instrument;
+  }
+
+  async update(
+    id: number,
+    updateInstrumentDto: UpdateInstrumentDto,
+  ): Promise<number> {
+    await this.findOne(id);
+
+    await this.instrumentRepository.update(id, updateInstrumentDto);
+    return id;
+  }
+
+  async remove(id: number, userToken: string): Promise<void> {
+    const canRemove = await this.authService.canUserRemoveInstrument(userToken);
+
+    if (!canRemove) {
+      throw new UnauthorizedException(
+        `User does not have permission to remove instruments.`,
+      );
+    }
+
+    const instrument = await this.instrumentRepository.findOne({
+      where: { id },
+    });
+    if (!instrument) {
+      throw new NotFoundException(`Instrument with ID ${id} not found`);
+    }
+
+    await this.instrumentRepository.remove(instrument);
+  }
+}

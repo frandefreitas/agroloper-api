@@ -1,0 +1,598 @@
+{
+	"info": {
+		"_postman_id": "d57a5272-02e7-466a-8137-b1c3992eff61",
+		"name": "Agroloper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "7084809"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "luan@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "senha123",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:3000/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by Token",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZyYW5jaXNjb0BleGFtcGxlLmNvbSIsInN1YiI6MTUsImlhdCI6MTY5Njc1NTc5MywiZXhwIjoxNjk2NzYyOTkzfQ.03X8BayFEbrBepoo0PASmLzKIdOLO1Eqo1bHtfGIiHI",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:3000/auth/getUserByToken"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Farm",
+			"item": [
+				{
+					"name": "Find All Farms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/farm/"
+					},
+					"response": []
+				},
+				{
+					"name": "Find One Farm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/farm/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Farm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Farm 11\",\r\n    \"description\": \"Description for Farm 3\",\r\n    \"city\": \"City C\",\r\n    \"state\": \"State Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/farm"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Farm",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Farm 11\",\r\n    \"description\": \"Description for Farm 11\",\r\n    \"city\": \"City A\",\r\n    \"state\": \"State A\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/farm/12"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Farm",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Farm 11\",\r\n    \"description\": \"Description for Farm 11\",\r\n    \"city\": \"City C\",\r\n    \"state\": \"State Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/farm/12"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Instrument",
+			"item": [
+				{
+					"name": "Find All Instruments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/instrument/"
+					},
+					"response": []
+				},
+				{
+					"name": "Find One Instrument",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/instrument/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Instruments by Farm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/instrument/farm/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Instrument",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Furadeira\",\r\n    \"description\": \"Ferramenta para perfuração de furos\",\r\n    \"type\": \"Instrument\",\r\n    \"farm\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/instrument"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Instrument",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Brocadeira\",\r\n    \"description\": \"Ferramenta para brocar\",\r\n    \"type\": \"Instrument\",\r\n    \"farm\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/instrument/11"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Instrument",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZyYW5jaXNjb0BtYWlsLmNvbSIsInN1YiI6MTYsImlhdCI6MTY5NzU3ODAzNSwiZXhwIjoxNjk3NTg1MjM1fQ.LvEBM2zs06EhqWA7Q60tY64NIA-n57LJRGvavVa8Wzc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/instrument/5"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Maintenance",
+			"item": [
+				{
+					"name": "Find All Maintenances",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/maintenance/"
+					},
+					"response": []
+				},
+				{
+					"name": "Find One Maintenance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/maintenance/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Maintenances by Person",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/maintenance/person/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Maintenances by Instrument",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/maintenance/instrument/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Maintenances by Farm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/maintenance/farm/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Maintenance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_type\": \"Instrument\",\r\n    \"hour_meter\": 100,\r\n    \"km\": 5000,\r\n    \"revision_type\": \"Preventive\",\r\n    \"summary\": \"Manutenção preventiva da ferramenta\",\r\n    \"date_time\": \"2022-09-10T13:00:00.000Z\",\r\n    \"action\": \"Verificação geral\",\r\n    \"instrument\": 1,\r\n    \"person\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/maintenance"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Maintenance",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_type\": \"Machine\",\r\n    \"hour_meter\": 100,\r\n    \"km\": 1,\r\n    \"revision_type\": \"Corrective\",\r\n    \"summary\": \"Manutenção preventiva da ferramenta\",\r\n    \"date_time\": \"2023-08-27T13:00:00.000Z\",\r\n    \"action\": \"Verificação geral\",\r\n    \"instrument\": 1,\r\n    \"person\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/maintenance/23"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Maintenance",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZyYW5jaXNjb0BtYWlsLmNvbSIsInN1YiI6MTYsImlhdCI6MTY5NzU3ODY3MCwiZXhwIjoxNjk3NTg1ODcwfQ.44R5Vjj-Dj7E-MVrVHoqxX-sdMxaT12ZUCj-FcEdw7E",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/maintenance/10"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Person",
+			"item": [
+				{
+					"name": "Find All Persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/person/"
+					},
+					"response": []
+				},
+				{
+					"name": "Find One Person",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/person/15"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Persons by Farm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/person/farm/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Person",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Luan\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"luan@example.com\",\r\n    \"person_type\": \"ExternalCollaborator\",\r\n    \"farm\": 1,\r\n    \"status\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/person"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Administrador",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Francisco de Freitas\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"password\": \"senha123\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"francisco@mail.com\",\r\n    \"person_type\": \"Administrator\",\r\n    \"farm\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/person/admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Person",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Francisco\",\r\n    \"gender\": \"Male\",\r\n    \"date_of_birth\": \"1990-01-01\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"email\": \"francisco@example.com\",\r\n    \"person_type\": \"Administrator\",\r\n    \"farm\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/person/15"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Person Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imx1YW5AZXhhbXBsZS5jb20iLCJzdWIiOjI0LCJpYXQiOjE2OTc1Nzg1MTYsImV4cCI6MTY5NzU4NTcxNn0.nct9oUlsWNp7AXFBPwXVhDPf7Oe5P2jG80X8c0RCQCE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/person/23/status"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"senha123\",\r\n    \"newPassword\": \"senha1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/person/15/update-password"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Person",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Farm 11\",\r\n    \"description\": \"Description for Farm 11\",\r\n    \"city\": \"City C\",\r\n    \"state\": \"State Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/person/10"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Scheduling",
+			"item": [
+				{
+					"name": "Find All Schedulings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/scheduling/"
+					},
+					"response": []
+				},
+				{
+					"name": "Find One Scheduling",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/scheduling/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Schedulings by Person",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/scheduling/person/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Schedulings by Instrument",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/scheduling/instrument/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Schedulings by Farm",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/scheduling/farm/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Scheduling",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scheduled_date_time\": \"2019-08-27T13:00:00.000Z\",\r\n    \"person\": 3,\r\n    \"instrument\": 3,\r\n    \"scheduling_description\": \"Manutenção!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/scheduling"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Scheduling",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scheduled_date_time\": \"2020-08-27T13:00:00.000Z\",\r\n    \"person\": 1,\r\n    \"instrument\": 1,\r\n    \"scheduling_description\": \"Nova Manutenção!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/scheduling/30"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Scheduling",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZyYW5jaXNjb0BtYWlsLmNvbSIsInN1YiI6MTYsImlhdCI6MTY5NzU3ODY3MCwiZXhwIjoxNjk3NTg1ODcwfQ.44R5Vjj-Dj7E-MVrVHoqxX-sdMxaT12ZUCj-FcEdw7E",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/scheduling/6"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
